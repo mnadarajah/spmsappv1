@@ -32,11 +32,56 @@ namespace SPMSCAV1
 
             builder.Services.AddScoped<IGenderService, GenderService>();
 
+            builder.Services.AddScoped<IPaymentTypeService, PaymentTypeService>();
+
+            builder.Services.AddScoped<IInjuryCodeSeriesTypeService, InjuryCodeSeriesTypeService>();
+
+            builder.Services.AddScoped<IInjuryCodeCategoryTypeService, InjuryCodeCategoryTypeService>();
+
+            builder.Services.AddScoped<IGoodAndServiceTypeService, GoodAndServiceTypeService>();
+
+            builder.Services.AddScoped<IDocumentTypeService, DocumentTypeService>();
+
             builder.Services.AddSingleton<MainPage>();
 
             builder.Services.AddSingleton<GenderPage>();
 
-            #if ANDROID && DEBUG
+            builder.Services.AddSingleton<GenderDetailPage>();
+
+            builder.Services.AddSingleton<NewGenderPage>();
+
+            builder.Services.AddSingleton<PaymentTypePage>();
+
+            builder.Services.AddSingleton<PaymentTypeDetailPage>();
+
+            builder.Services.AddSingleton<NewPaymentTypePage>();
+
+            builder.Services.AddSingleton<InjuryCodeSeriesTypePage>();
+
+            builder.Services.AddSingleton<InjuryCodeSeriesTypeDetailPage>();
+
+            builder.Services.AddSingleton<NewInjuryCodeSeriesTypePage>();
+
+            builder.Services.AddSingleton<InjuryCodeCategoryTypePage>();
+
+            builder.Services.AddSingleton<InjuryCodeCategoryTypeDetailPage>();
+
+            builder.Services.AddSingleton<NewInjuryCodeCategoryTypePage>();
+
+            builder.Services.AddSingleton<GoodAndServiceTypePage>();
+
+            builder.Services.AddSingleton<GoodAndServiceTypeDetailPage>();
+
+            builder.Services.AddSingleton<NewGoodAndServiceTypePage>();
+
+            builder.Services.AddSingleton<DocumentTypePage>();
+
+            builder.Services.AddSingleton<DocumentTypeDetailPage>();
+
+            builder.Services.AddSingleton<NewDocumentTypePage>();
+
+
+#if ANDROID && DEBUG
             Platforms.Android.DangerousAndroidMessageHandlerEmitter.Register();
             Platforms.Android.DangerousTrustProvider.Register();
             #endif

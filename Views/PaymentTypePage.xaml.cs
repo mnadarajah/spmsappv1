@@ -4,18 +4,18 @@ using SPMSCAV1.ViewModels;
 namespace SPMSCAV1.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class GenderPage : ContentPage
+    public partial class PaymentTypePage : ContentPage
     {
-        private readonly IGenderService _dataService;
-        public GenderPage(IGenderService dataService)
+        private readonly IPaymentTypeService _dataService;
+        public PaymentTypePage(IPaymentTypeService dataService)
         {
             InitializeComponent();
             _dataService = dataService;
-            BindingContext = ViewModel = new GenderViewModel(_dataService);
-            //BindingContext = ViewModel = new GendersViewModel();
+            BindingContext = ViewModel = new PaymentTypeViewModel(_dataService);
+            //BindingContext = ViewModel = new PaymentTypesViewModel();
         }
 
-        GenderViewModel ViewModel { get; }
+        PaymentTypeViewModel ViewModel { get; }
 
         protected override void OnAppearing()
         {

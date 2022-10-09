@@ -53,13 +53,109 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\DocumentTypeDetailPage.xaml.cs">
+	    <DependentUpon>DocumentTypeDetailPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\GoodAndServiceTypeDetailPage.xaml.cs">
+	    <DependentUpon>GoodAndServiceTypeDetailPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\DocumentTypePage.xaml.cs">
+	    <DependentUpon>DocumentTypePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\InjuryCodeCategoryTypeDetailPage.xaml.cs">
+	    <DependentUpon>InjuryCodeCategoryTypeDetailPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\GoodAndServiceTypePage.xaml.cs">
+	    <DependentUpon>GoodAndServiceTypePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\InjuryCodeCategoryTypePage.xaml.cs">
+	    <DependentUpon>InjuryCodeCategoryTypePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\NewDocumentTypePage.xaml.cs">
+	    <DependentUpon>NewDocumentTypePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\NewGoodAndServiceTypePage.xaml.cs">
+	    <DependentUpon>NewGoodAndServiceTypePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\NewInjuryCodeCategoryTypePage.xaml.cs">
+	    <DependentUpon>NewInjuryCodeCategoryTypePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\NewInjuryCodeSeriesTypePage.xaml.cs">
+	    <DependentUpon>NewInjuryCodeSeriesTypePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\NewPaymentTypePage.xaml.cs">
+	    <DependentUpon>NewPaymentTypePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\InjuryCodeSeriesTypeDetailPage.xaml.cs">
+	    <DependentUpon>InjuryCodeSeriesTypeDetailPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\PaymentTypeDetailPage.xaml.cs">
+	    <DependentUpon>PaymentTypeDetailPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\InjuryCodeSeriesTypePage.xaml.cs">
+	    <DependentUpon>InjuryCodeSeriesTypePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\PaymentTypePage.xaml.cs">
+	    <DependentUpon>PaymentTypePage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\GenderPage.xaml.cs">
 	    <DependentUpon>GenderPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\NewGenderPage.xaml.cs">
+	    <DependentUpon>NewGenderPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\DocumentTypeDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\GoodAndServiceTypeDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\DocumentTypePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\InjuryCodeCategoryTypeDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\GoodAndServiceTypePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\InjuryCodeCategoryTypePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\NewDocumentTypePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\NewGoodAndServiceTypePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\NewInjuryCodeCategoryTypePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\NewInjuryCodeSeriesTypePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\NewPaymentTypePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\InjuryCodeSeriesTypeDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PaymentTypeDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\InjuryCodeSeriesTypePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PaymentTypePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\GenderPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\NewGenderPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>	

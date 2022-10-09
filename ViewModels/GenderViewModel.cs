@@ -4,12 +4,12 @@ using System.Collections.ObjectModel;
 
 namespace SPMSCAV1.ViewModels
 {
-    public class GendersViewModel : BaseViewModel
+    public class GenderViewModel : BaseViewModel
     {
         IGenderService _dataService;
         GenderModel _selectedGender;
 
-        public GendersViewModel(IGenderService dataService)
+        public GenderViewModel(IGenderService dataService)
 
         {
             Title = "Browse";
@@ -71,14 +71,14 @@ namespace SPMSCAV1.ViewModels
 
         async void OnAddGender(object obj)
         {
-            //await Navigation.NavigateToAsync<NewGenderViewModel>(null);
+            await Navigation.NavigateToAsync<NewGenderViewModel>(null);
         }
 
         async void OnGenderSelected(GenderModel gender)
         {
             if (gender == null)
                 return;
-            //await Navigation.NavigateToAsync<GenderDetailViewModel>(gender.GenderId);
+            await Navigation.NavigateToAsync<GenderDetailViewModel>(gender.GenderId);
         }
     }
 }

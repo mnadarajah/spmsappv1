@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:templates="clr-namespace:SPMSCAV1.Views.Templates"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource NormalBackgroundColor}"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             x:Class="SPMSCAV1.Views.GoodAndServiceTypeDetailPage">
+    <ContentPage.Content>
+        <StackLayout Spacing="5" Padding="15">
+            <Label Text="Description:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}"/>
+            <Label Text="{Binding Description}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}" Margin="0, 0, 0, 15"/>
+            <Label Text="Code:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="{Binding Code}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -9,18 +9,18 @@
              BackgroundColor="{StaticResource NormalBackgroundColor}"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              ios:Page.UseSafeArea="true"
-             x:Class="SPMSCAV1.Views.GenderPage">
+             x:Class="SPMSCAV1.Views.InjuryCodeCategoryTypePage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="ADD" Command="{Binding AddGenderCommand}" />
+        <ToolbarItem Text="ADD" Command="{Binding AddInjuryCodeCategoryTypeCommand}" />
     </ContentPage.ToolbarItems>
     <Grid RowDefinitions="Auto, *">
         <dxcv:DXCollectionView x:Name="ItemsListView" Grid.Row="2"
-            ItemsSource="{Binding Genders}"
+            ItemsSource="{Binding InjuryCodeCategoryTypes}"
                 SelectionMode="None" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
             <dxcv:DXCollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <StackLayout Padding="18,20,10,01" x:DataType="model:GenderModel">
+                            <StackLayout Padding="18,20,10,01" x:DataType="model:InjuryCodeCategoryTypeModel">
                                 <Label Text="{Binding Description}"
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemTextStyle}"
@@ -36,7 +36,7 @@
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer
                                             NumberOfTapsRequired="1"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:GenderViewModel}}, Path=GenderTapped}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:InjuryCodeCategoryTypeViewModel}}, Path=InjuryCodeCategoryTypeTapped}"
                                             CommandParameter="{Binding .}">
                                     </TapGestureRecognizer>
                                 </StackLayout.GestureRecognizers>

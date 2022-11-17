@@ -65,4 +65,54 @@
         </Grid>
     </ContentPage.Content>
 
+    <!--<ContentPage.Content>
+
+        <Grid RowDefinitions="Auto, *">
+            <Grid ColumnDefinitions="Auto, *">
+                <dxdf:DataFormView x:Name="dataForm" DataObject="{Binding .}" CommitMode="PropertyChanged" ContentPadding="0" Margin="15" PropertyChanged="dataForm_PropertyChanged" Grid.Column="1">
+                    <dxdf:DataFormView.Resources>
+                        <Style TargetType="dxe:TextEdit">
+                            <Setter Property="TextFontSize" Value="16" />
+                            <Setter Property="TextFontFamily" Value="Roboto" />
+                            <Setter Property="PlaceholderColor" Value="#acacac"/>
+                        </Style>
+                    </dxdf:DataFormView.Resources>
+                    <dxdf:DataFormTextItem InplaceLabelText="Search" FieldName="SearchValue" IsLabelVisible="False" ></dxdf:DataFormTextItem>
+                </dxdf:DataFormView>
+
+            </Grid>
+            <dxcv:DXCollectionView x:Name="ItemsListView" Grid.Row="2"
+            ItemsSource="{Binding Genders}"
+                SelectionMode="None" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                <dxcv:DXCollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <StackLayout Padding="18,20,10,01" x:DataType="model:GenderModel">
+                                <Label Text="{Binding Description}"
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemTextStyle}"
+                                        FontFamily="Roboto"
+                                        FontSize="14"
+                                        TextColor="{StaticResource NormalText}"/>
+                                <Label Text="{Binding Description}"
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                        FontFamily="Roboto"
+                                        FontSize="12"
+                                        TextColor="{StaticResource NormalLightText}"/>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                            NumberOfTapsRequired="1"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:GenderViewModel}}, Path=GenderTapped}"
+                                            CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </dxcv:DXCollectionView.ItemTemplate>
+            </dxcv:DXCollectionView>
+        </Grid>
+    </ContentPage.Content>-->
+
 </ContentPage>

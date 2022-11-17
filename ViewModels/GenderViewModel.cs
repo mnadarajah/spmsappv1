@@ -117,14 +117,18 @@ namespace SPMSCAV1.ViewModels
                 }
                 else
                 {
-                    foreach (var gender in GendersOriginal)
-                    {
-                        gender.Description = gender.Description;
-                        if (gender.Description.ToLower().Contains(SearchValue.ToLower()))
+                    //if (SearchValue.Length > 1)
+                    //{
+
+                        foreach (var gender in GendersOriginal)
                         {
-                            Genders.Add(gender);
+                            gender.Description = gender.Description;
+                            if (gender.Description.ToLower().Contains(SearchValue.ToLower()))
+                            {
+                                Genders.Add(gender);
+                            }
                         }
-                    }
+                    //}
                 }
             }
             IsBusy = false;

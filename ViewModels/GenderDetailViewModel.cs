@@ -15,9 +15,13 @@ namespace SPMSCAV1.ViewModels
 
         public GenderDetailViewModel(IGenderService dataService)
         {
+            Title = "Detail";
+            EditGenderCommand = new Command(EditGender);
             _dataService = dataService;
         }
         public double Id { get; set; }
+
+        public Command EditGenderCommand { get; }
 
         public string Description
         {
@@ -59,6 +63,14 @@ namespace SPMSCAV1.ViewModels
             long genderId;
             long.TryParse(id, out genderId);
             await LoadGenderId(genderId);
+        }
+
+        public async void EditGender()
+        {
+            if (Id < 0)
+                return;
+            //await Navigation.NavigateToAsync<EditGenderViewModel>(Id);
+            await Navigation.NavigateToAsync<EditGenderViewModel>(Id);
         }
     }
 }

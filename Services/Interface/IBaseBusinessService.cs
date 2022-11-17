@@ -11,6 +11,7 @@ namespace SPMSCAV1.Services.Interface
         //CRUD operation for API endpoint
         Task<List<T>> GetListAsync();
         Task<T> GetByKeyAsync(long? id);
+
         Task AddAndSaveAsync(T entity);
         Task AttachAndSaveAsync(T entity, long id);
         Task DeleteAndSaveAsync(long id);

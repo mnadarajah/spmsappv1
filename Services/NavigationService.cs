@@ -35,8 +35,8 @@ namespace SPMSCAV1.Services
             string absolutePrefix = isAbsoluteRoute ? "///" : String.Empty;
             if (parameter != null)
             {
-                await Shell.Current.GoToAsync(
-                    $"{absolutePrefix}{viewName}?id={HttpUtility.UrlEncode(parameter.ToString())}");
+                string finalPath = $"{absolutePrefix}{viewName}?id={HttpUtility.UrlEncode(parameter.ToString())}";
+                await Shell.Current.GoToAsync(finalPath);
             }
             else
             {

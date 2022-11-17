@@ -73,7 +73,7 @@ namespace SPMSCAV1.Services.Repository
             try
             {
                 string json = JsonSerializer.Serialize<T>(entity, _jsonSerializerOptions);
-                StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json/");
+                StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
 
                 HttpResponseMessage httpResponseMessage = await _httpClient.PutAsync($"{_url + _route}/{id}", stringContent);
 

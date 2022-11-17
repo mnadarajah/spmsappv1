@@ -26,6 +26,7 @@ namespace SPMSCAV1
             Routing.RegisterRoute(typeof(NewInjuryCodeCategoryTypePage).FullName, typeof(NewInjuryCodeCategoryTypePage));
             Routing.RegisterRoute(typeof(NewGoodAndServiceTypePage).FullName, typeof(NewGoodAndServiceTypePage));
             Routing.RegisterRoute(typeof(NewDocumentTypePage).FullName, typeof(NewDocumentTypePage));
+            Routing.RegisterRoute(typeof(EditGenderPage).FullName, typeof(EditGenderPage));
             MainPage = new MainPage();
         }
     }

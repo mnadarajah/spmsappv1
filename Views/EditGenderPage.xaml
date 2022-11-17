@@ -8,9 +8,9 @@
              BackgroundColor="{StaticResource NormalBackgroundColor}"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              ios:Page.UseSafeArea="true"
-             x:Class="SPMSCAV1.Views.NewGenderPage">
+             x:Class="SPMSCAV1.Views.EditGenderPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="1Save" Command="{Binding SaveCommand}"/>
+        <ToolbarItem Text="Save" Command="{Binding SaveCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
             <dxdf:DataFormView x:Name="dataForm" DataObject="{Binding .}" CommitMode="PropertyChanged" ContentPadding="0" Margin="15">

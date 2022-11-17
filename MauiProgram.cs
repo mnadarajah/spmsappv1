@@ -50,6 +50,8 @@ namespace SPMSCAV1
 
             builder.Services.AddSingleton<NewGenderPage>();
 
+            builder.Services.AddSingleton<EditGenderPage>(); 
+
             builder.Services.AddSingleton<PaymentTypePage>();
 
             builder.Services.AddSingleton<PaymentTypeDetailPage>();
@@ -79,6 +81,8 @@ namespace SPMSCAV1
             builder.Services.AddSingleton<DocumentTypeDetailPage>();
 
             builder.Services.AddSingleton<NewDocumentTypePage>();
+
+            
 
 
 #if ANDROID && DEBUG

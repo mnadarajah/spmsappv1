@@ -40,16 +40,17 @@
 
 	<ItemGroup>
 	  <None Remove="Platforms\Android\Resources\xml\network_security_config.xml" />
+	  <None Remove="Resources\Images\search.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DevExpress.Maui.Charts" Version="22.1.5" />
-		<PackageReference Include="DevExpress.Maui.CollectionView" Version="22.1.5" />
-		<PackageReference Include="DevExpress.Maui.Core" Version="22.1.5" />
-		<PackageReference Include="DevExpress.Maui.DataGrid" Version="22.1.5" />
-		<PackageReference Include="DevExpress.Maui.Controls" Version="22.1.5" />
-		<PackageReference Include="DevExpress.Maui.Scheduler" Version="22.1.5" />
-		<PackageReference Include="DevExpress.Maui.Editors" Version="22.1.5" />
+		<PackageReference Include="DevExpress.Maui.Charts" Version="22.1.6" />
+		<PackageReference Include="DevExpress.Maui.CollectionView" Version="22.1.6" />
+		<PackageReference Include="DevExpress.Maui.Core" Version="22.1.6" />
+		<PackageReference Include="DevExpress.Maui.DataGrid" Version="22.1.6" />
+		<PackageReference Include="DevExpress.Maui.Controls" Version="22.1.6" />
+		<PackageReference Include="DevExpress.Maui.Scheduler" Version="22.1.6" />
+		<PackageReference Include="DevExpress.Maui.Editors" Version="22.1.6" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -73,6 +74,9 @@
 	  </Compile>
 	  <Compile Update="Views\NewDocumentTypePage.xaml.cs">
 	    <DependentUpon>NewDocumentTypePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\EditGenderPage.xaml.cs">
+	    <DependentUpon>EditGenderPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\NewGoodAndServiceTypePage.xaml.cs">
 	    <DependentUpon>NewGoodAndServiceTypePage.xaml</DependentUpon>
@@ -128,6 +132,9 @@
 	  <MauiXaml Update="Views\NewDocumentTypePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\EditGenderPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\NewGoodAndServiceTypePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -163,5 +170,6 @@
 		<UseInterpreter Condition="$(TargetFramework.Contains('-ios'))">True</UseInterpreter>
 		<UseInterpreter Condition="$(TargetFramework.Contains('-android'))">False</UseInterpreter>
 		<RuntimeIdentifiers Condition="$(TargetFramework.Contains('-android'))">android-arm;android-arm64;android-x86;android-x64</RuntimeIdentifiers>
-	</PropertyGroup>	 
+	</PropertyGroup>	
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadGenericExceptionInfoBarSPMSCAV1HideInfoBar="True" /></VisualStudio></ProjectExtensions>	 
 </Project>

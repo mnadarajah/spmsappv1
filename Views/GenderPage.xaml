@@ -21,8 +21,7 @@
     <ContentPage.Content>
         
         <Grid RowDefinitions="Auto, *">
-            <dxdf:DataFormView x:Name="dataForm" DataObject="{Binding .}" CommitMode="PropertyChanged" ContentPadding="0" Margin="15">
-                <!--PropertyChanged="dataForm_PropertyChanged" PropertyChanging="dataForm_PropertyChanging">-->
+            <dxdf:DataFormView x:Name="dataForm" DataObject="{Binding .}" CommitMode="PropertyChanged" ContentPadding="0" Margin="15" PropertyChanged="dataForm_PropertyChanged">
                 <dxdf:DataFormView.Resources>
                     <Style TargetType="dxe:TextEdit">
                         <Setter Property="TextFontSize" Value="16" />

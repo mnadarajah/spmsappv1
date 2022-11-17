@@ -23,13 +23,14 @@ namespace SPMSCAV1.Views
             ViewModel.OnAppearing();
         }
 
-        /*private void dataForm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void dataForm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (!ViewModel.Genders.Equals(null)){
+            if (!ViewModel.Genders.Equals(null))
+            {
                 ViewModel.SearchGender();
             }
 
-        }*/
+        }
 
     }
 }

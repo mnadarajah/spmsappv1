@@ -16,5 +16,7 @@ namespace SPMSCAV1.Services.Interface
         Task AttachAndSaveAsync(T entity, long id);
         Task DeleteAndSaveAsync(long id);
 
+        Task<IEnumerable<T>> Search(string searchValue);
+
     }
 }

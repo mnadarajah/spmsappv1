@@ -82,7 +82,16 @@ namespace SPMSCAV1
 
             builder.Services.AddSingleton<NewDocumentTypePage>();
 
-            
+            builder.Services.AddSingleton<EditGoodAndServiceTypePage>();
+
+            builder.Services.AddSingleton<EditInjuryCodeCategoryTypePage>();
+
+            builder.Services.AddSingleton<EditInjuryCodeSeriesTypePage>();
+
+            builder.Services.AddSingleton<EditPaymentTypePage>();
+
+            builder.Services.AddSingleton<EditDocumentTypePage>();
+
 
 
 #if ANDROID && DEBUG

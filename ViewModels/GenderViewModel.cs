@@ -10,6 +10,7 @@ namespace SPMSCAV1.ViewModels
     {
         IGenderService _dataService;
         GenderModel _selectedGender;
+        List<string> _Queue = new List<string>();
         string searchValue;
         bool init = false;
 
@@ -99,7 +100,7 @@ namespace SPMSCAV1.ViewModels
         }
 
 
-        public void SearchGender()
+        public async void SearchGender()
         {
             IsBusy = true;
             if (!init){
@@ -107,28 +108,22 @@ namespace SPMSCAV1.ViewModels
             }
             else
             {
+                IEnumerable<GenderModel> genders;
                 Genders.Clear();
-                if (SearchValue.Equals(null))
+                if (!string.IsNullOrEmpty(SearchValue))
                 {
-                    foreach (var gender in GendersOriginal)
-                    {
-                        Genders.Add(gender);
-                    }
+                     genders = await _dataService.Search(SearchValue);
                 }
                 else
                 {
-                    //if (SearchValue.Length > 1)
-                    //{
+                     genders = await _dataService.GetListAsync();
+                }
 
-                        foreach (var gender in GendersOriginal)
-                        {
-                            gender.Description = gender.Description;
-                            if (gender.Description.ToLower().Contains(SearchValue.ToLower()))
-                            {
-                                Genders.Add(gender);
-                            }
-                        }
-                    //}
+                foreach (var gender in genders)
+                {
+                    gender.Description = gender.Description;
+                    Genders.Add(gender);
+                    GendersOriginal.Add(gender);
                 }
             }
             IsBusy = false;
@@ -147,5 +142,10 @@ namespace SPMSCAV1.ViewModels
             await Navigation.NavigateToAsync<GenderDetailViewModel>(gender.GenderId);
         }
 
+        public void AddTextToQueue(string text)
+        {
+            //lock(_Queue)
+            _Queue.Add(text);
+        }
     }
 }

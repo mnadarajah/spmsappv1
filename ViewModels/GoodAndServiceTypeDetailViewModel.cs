@@ -60,5 +60,13 @@ namespace SPMSCAV1.ViewModels
             long.TryParse(id, out genderId);
             await LoadGoodAndServiceTypeId(genderId);
         }
+
+        public async void EditGoodAndServiceType()
+        {
+            if (Id < 0)
+                return;
+            //await Navigation.NavigateToAsync<EditGoodAndServiceTypeViewModel>(Id);
+            await Navigation.NavigateToAsync<EditGoodAndServiceTypeViewModel>(Id);
+        }
     }
 }

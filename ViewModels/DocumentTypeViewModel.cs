@@ -1,4 +1,5 @@
-﻿using SPMSCAV1.Models;
+﻿using DevExpress.Maui.DataForm;
+using SPMSCAV1.Models;
 using SPMSCAV1.Services.Interface;
 using System.Collections.ObjectModel;
 
@@ -8,27 +9,42 @@ namespace SPMSCAV1.ViewModels
     {
         IDocumentTypeService _dataService;
         DocumentTypeModel _selectedDocumentType;
+        string searchValue;
+        bool init = false;
 
         public DocumentTypeViewModel(IDocumentTypeService dataService)
 
         {
             Title = "Browse";
             DocumentTypes = new ObservableCollection<DocumentTypeModel>();
+            DocumentTypesOriginal = new ObservableCollection<DocumentTypeModel>();
             LoadDocumentTypesCommand = new Command(() => ExecuteLoadDocumentTypesCommand());
             DocumentTypeTapped = new Command<DocumentTypeModel>(OnDocumentTypeSelected);
             AddDocumentTypeCommand = new Command(OnAddDocumentType);
+            SearchDocumentTypeCommand = new Command(SearchDocumentType);
             _dataService = dataService;
         }
 
-
+        [DataFormDisplayOptions(IsVisible = false)]
         public ObservableCollection<DocumentTypeModel> DocumentTypes { get; }
 
+        [DataFormDisplayOptions(IsVisible = false)]
+        public ObservableCollection<DocumentTypeModel> DocumentTypesOriginal { get; }
+
+
+        [DataFormDisplayOptions(IsVisible = false)]
         public Command LoadDocumentTypesCommand { get; }
 
+        [DataFormDisplayOptions(IsVisible = false)]
         public Command AddDocumentTypeCommand { get; }
 
+        [DataFormDisplayOptions(IsVisible = false)]
+        public Command SearchDocumentTypeCommand { get; }
+
+        [DataFormDisplayOptions(IsVisible = false)]
         public Command<DocumentTypeModel> DocumentTypeTapped { get; }
 
+        [DataFormDisplayOptions(IsVisible = false)]
         public DocumentTypeModel SelectedDocumentType
         {
             get => this._selectedDocumentType;
@@ -37,6 +53,17 @@ namespace SPMSCAV1.ViewModels
                 SetProperty(ref this._selectedDocumentType, value);
                 OnDocumentTypeSelected(value);
             }
+        }
+
+        public string SearchValue
+        {
+            get => this.searchValue;
+            set
+            {
+                SetProperty(ref this.searchValue, value);
+            }
+
+
         }
 
         public void OnAppearing()
@@ -52,11 +79,12 @@ namespace SPMSCAV1.ViewModels
             try
             {
                 DocumentTypes.Clear();
-                var injuryCodeCategorys = await _dataService.GetListAsync();
-                foreach (var injuryCodeCategory in injuryCodeCategorys)
+                var genders = await _dataService.GetListAsync();
+                foreach (var gender in genders)
                 {
-                    injuryCodeCategory.Description = injuryCodeCategory.Description;
-                    DocumentTypes.Add(injuryCodeCategory);
+                    gender.Description = gender.Description;
+                    DocumentTypes.Add(gender);
+                    DocumentTypesOriginal.Add(gender);
                 }
             }
             catch (Exception ex)
@@ -65,20 +93,60 @@ namespace SPMSCAV1.ViewModels
             }
             finally
             {
+                init = true;
                 IsBusy = false;
             }
         }
+
+
+        public void SearchDocumentType()
+        {
+            IsBusy = true;
+            if (!init)
+            {
+
+            }
+            else
+            {
+                DocumentTypes.Clear();
+                if (SearchValue.Equals(null))
+                {
+                    foreach (var gender in DocumentTypesOriginal)
+                    {
+                        DocumentTypes.Add(gender);
+                    }
+                }
+                else
+                {
+                    //if (SearchValue.Length > 1)
+                    //{
+
+                    foreach (var gender in DocumentTypesOriginal)
+                    {
+                        gender.Description = gender.Description;
+                        if (gender.Description.ToLower().Contains(SearchValue.ToLower()))
+                        {
+                            DocumentTypes.Add(gender);
+                        }
+                    }
+                    //}
+                }
+            }
+            IsBusy = false;
+        }
+
 
         async void OnAddDocumentType(object obj)
         {
             await Navigation.NavigateToAsync<NewDocumentTypeViewModel>(null);
         }
 
-        async void OnDocumentTypeSelected(DocumentTypeModel injuryCodeCategory)
+        async void OnDocumentTypeSelected(DocumentTypeModel gender)
         {
-            if (injuryCodeCategory == null)
+            if (gender == null)
                 return;
-            await Navigation.NavigateToAsync<DocumentTypeDetailViewModel>(injuryCodeCategory.DocumentTypeId);
+            await Navigation.NavigateToAsync<DocumentTypeDetailViewModel>(gender.DocumentTypeId);
         }
+
     }
 }

@@ -14,7 +14,8 @@
              ios:Page.UseSafeArea="true"
              x:Class="SPMSCAV1.Views.GenderPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="search" Command="{Binding SearchGenderCommand}"/>
+        <ToolbarItem Text="SEARCH" Command="{Binding SearchGenderCommand}"/>
+        <!--<ToolbarItem IconImageSource="search" Command="{Binding SearchGenderCommand}"/>-->
         <ToolbarItem Text="ADD" Command="{Binding AddGenderCommand}" />
     </ContentPage.ToolbarItems>
 

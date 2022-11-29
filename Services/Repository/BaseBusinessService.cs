@@ -160,6 +160,38 @@ namespace SPMSCAV1.Services.Repository
             return null;
         }
 
+        public async Task<IEnumerable<T>> Search(string searchValue)
+        {
+            List<T> list = new List<T>();
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+            {
+                //Debug.WriteLine("");
+                return list;
+            }
+
+            try
+            {
+                HttpResponseMessage httpResponseMessage = await _httpClient.GetAsync($"{_url + _route}/search/{searchValue}");
+
+                if (httpResponseMessage.IsSuccessStatusCode)
+                {
+                    string content = await httpResponseMessage.Content.ReadAsStringAsync();
+                    list = JsonSerializer.Deserialize<List<T>>(content, _jsonSerializerOptions);
+                }
+                else
+                {
+                    //Debug.WriteLine("");
+                }
+            }
+            catch (Exception)
+            {
+                //Debug.WriteLine("");
+                throw;
+            }
+
+            return list;
+        }
+
         public async Task<List<T>> GetListAsync()
         {
             List<T> list = new List<T>();

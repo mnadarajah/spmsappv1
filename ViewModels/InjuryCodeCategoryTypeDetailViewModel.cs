@@ -60,5 +60,13 @@ namespace SPMSCAV1.ViewModels
             long.TryParse(id, out genderId);
             await LoadInjuryCodeCategoryTypeId(genderId);
         }
+
+        public async void EditInjuryCodeCategoryType()
+        {
+            if (Id < 0)
+                return;
+            //await Navigation.NavigateToAsync<EditInjuryCodeCategoryTypeViewModel>(Id);
+            await Navigation.NavigateToAsync<EditInjuryCodeCategoryTypeViewModel>(Id);
+        }
     }
 }

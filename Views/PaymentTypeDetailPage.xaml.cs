@@ -1,5 +1,6 @@
 ﻿using SPMSCAV1.Services.Interface;
 using SPMSCAV1.ViewModels;
+using Microsoft.Maui.Controls;
 
 namespace SPMSCAV1.Views
 {
@@ -13,6 +14,12 @@ namespace SPMSCAV1.Views
             _dataService = dataService;
             BindingContext = new PaymentTypeDetailViewModel(dataService);
 
+        }
+        
+        protected override void OnAppearing()
+        {
+            //InitializeComponent();
+            base.OnAppearing();
         }
     }
 }

@@ -7,6 +7,9 @@
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              ios:Page.UseSafeArea="true"
              x:Class="SPMSCAV1.Views.InjuryCodeCategoryTypeDetailPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="EDIT" Command="{Binding EditInjuryCodeCategoryTypeCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Spacing="5" Padding="15">
             <Label Text="Description:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}"/>

@@ -22,5 +22,14 @@ namespace SPMSCAV1.Views
             base.OnAppearing();
             ViewModel.OnAppearing();
         }
+
+        private void dataForm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (!ViewModel.GoodAndServiceTypes.Equals(null))
+            {
+                ViewModel.SearchGoodAndServiceType();
+            }
+
+        }
     }
 }

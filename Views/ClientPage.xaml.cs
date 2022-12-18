@@ -4,18 +4,18 @@ using SPMSCAV1.ViewModels;
 namespace SPMSCAV1.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PaymentTypePage : ContentPage
+    public partial class ClientPage : ContentPage
     {
-        private readonly IPaymentTypeService _dataService;
-        public PaymentTypePage(IPaymentTypeService dataService)
+        private readonly IClientService _dataService;
+        public ClientPage(IClientService dataService)
         {
             InitializeComponent();
             _dataService = dataService;
-            BindingContext = ViewModel = new PaymentTypeViewModel(_dataService);
-            //BindingContext = ViewModel = new PaymentTypesViewModel();
+            BindingContext = ViewModel = new ClientViewModel(_dataService);
+            //BindingContext = ViewModel = new ClientsViewModel();
         }
 
-        PaymentTypeViewModel ViewModel { get; }
+        ClientViewModel ViewModel { get; }
 
         protected override void OnAppearing()
         {
@@ -23,23 +23,14 @@ namespace SPMSCAV1.Views
             ViewModel.OnAppearing();
         }
 
-        private void dataForm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (!ViewModel.PaymentTypes.Equals(null))
-            {
-                ViewModel.SearchPaymentType();
-            }
-
-        }
-
         void OnEntryTextChanged(object sender, TextChangedEventArgs e)
         {
             string oldText = e.OldTextValue;
             string newText = e.NewTextValue;
             string myText = searchValue.Text;
-            if (newText.Length != 1)
+            if(newText.Length != 1)
             {
-                ViewModel.SearchPaymentType(newText);
+                ViewModel.SearchClient(newText);
             }
         }
 
@@ -47,5 +38,6 @@ namespace SPMSCAV1.Views
         {
             string text = ((Entry)sender).Text;
         }
+
     }
 }

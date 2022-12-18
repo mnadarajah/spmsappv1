@@ -57,6 +57,18 @@
 	  <Compile Update="Views\DocumentTypeDetailPage.xaml.cs">
 	    <DependentUpon>DocumentTypeDetailPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\ClientPage.xaml.cs">
+	    <DependentUpon>ClientPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ClientDetailPage.xaml.cs">
+	    <DependentUpon>ClientDetailPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\EditClientPage.xaml.cs">
+	    <DependentUpon>EditClientPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\CalendarPage.xaml.cs">
+	    <DependentUpon>CalendarPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\GoodAndServiceTypeDetailPage.xaml.cs">
 	    <DependentUpon>GoodAndServiceTypeDetailPage.xaml</DependentUpon>
 	  </Compile>
@@ -77,6 +89,9 @@
 	  </Compile>
 	  <Compile Update="Views\EditGenderPage.xaml.cs">
 	    <DependentUpon>EditGenderPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\NewClientPage.xaml.cs">
+	    <DependentUpon>NewClientPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\NewGoodAndServiceTypePage.xaml.cs">
 	    <DependentUpon>NewGoodAndServiceTypePage.xaml</DependentUpon>
@@ -114,6 +129,18 @@
 	  <MauiXaml Update="Views\DocumentTypeDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\ClientPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ClientDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\EditClientPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CalendarPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\GoodAndServiceTypeDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -133,6 +160,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\EditGenderPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\NewClientPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\NewGoodAndServiceTypePage.xaml">

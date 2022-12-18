@@ -28,7 +28,8 @@ namespace SPMSCAV1
                 {
                     effects.AddCompatibilityEffects(AppDomain.CurrentDomain.GetAssemblies());
                 });
-            //
+
+            //Add scoped for services
 
             builder.Services.AddScoped<IGenderService, GenderService>();
 
@@ -41,6 +42,15 @@ namespace SPMSCAV1
             builder.Services.AddScoped<IGoodAndServiceTypeService, GoodAndServiceTypeService>();
 
             builder.Services.AddScoped<IDocumentTypeService, DocumentTypeService>();
+
+            builder.Services.AddScoped<IClientService, ClientService>();
+
+            builder.Services.AddScoped<ICountryService, CountryService>();
+
+            builder.Services.AddScoped<IProvinceOrStateService, ProvinceOrStateService>();
+
+
+            //Add singleton for each page view
 
             builder.Services.AddSingleton<MainPage>();
 
@@ -92,12 +102,21 @@ namespace SPMSCAV1
 
             builder.Services.AddSingleton<EditDocumentTypePage>();
 
+            builder.Services.AddSingleton<EditClientPage>();
+
+            builder.Services.AddSingleton<NewClientPage>();
+
+            builder.Services.AddSingleton<ClientDetailPage>();
+
+            builder.Services.AddSingleton<ClientPage>();
+
+            builder.Services.AddSingleton<CalendarPage>();
 
 
 #if ANDROID && DEBUG
             Platforms.Android.DangerousAndroidMessageHandlerEmitter.Register();
             Platforms.Android.DangerousTrustProvider.Register();
-            #endif
+#endif
 
             return builder.Build();
         }

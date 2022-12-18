@@ -16,8 +16,11 @@ namespace SPMSCAV1.ViewModels
         public DocumentTypeDetailViewModel(IDocumentTypeService dataService)
         {
             _dataService = dataService;
+            EditDocumentTypeCommand = new Command(EditDocumentType);
         }
         public double Id { get; set; }
+
+        public Command EditDocumentTypeCommand { get; }
 
         public string Description
         {

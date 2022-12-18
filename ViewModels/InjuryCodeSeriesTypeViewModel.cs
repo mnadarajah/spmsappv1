@@ -2,15 +2,21 @@
 using SPMSCAV1.Services.Interface;
 using System.Collections.ObjectModel;
 using DevExpress.Maui.DataForm;
+using System.ComponentModel;
+using System.Windows.Input;
+using System.Runtime.CompilerServices;
 
 namespace SPMSCAV1.ViewModels
 {
-    public class InjuryCodeSeriesTypeViewModel : BaseViewModel
+    public class InjuryCodeSeriesTypeViewModel : BaseViewModel, INotifyPropertyChanged
     {
         IInjuryCodeSeriesTypeService _dataService;
         InjuryCodeSeriesTypeModel _selectedInjuryCodeSeriesType;
         string searchValue;
         bool init = false;
+        bool isRefreshing = false;
+        int skip = 0;
+        int take = 10;
 
         public InjuryCodeSeriesTypeViewModel(IInjuryCodeSeriesTypeService dataService)
 
@@ -22,6 +28,7 @@ namespace SPMSCAV1.ViewModels
             InjuryCodeSeriesTypeTapped = new Command<InjuryCodeSeriesTypeModel>(OnInjuryCodeSeriesTypeSelected);
             AddInjuryCodeSeriesTypeCommand = new Command(OnAddInjuryCodeSeriesType);
             SearchInjuryCodeSeriesTypeCommand = new Command(SearchInjuryCodeSeriesType);
+            LoadMoreCommand = new Command(ExecuteLoadMoreCommand);
             _dataService = dataService;
         }
 
@@ -30,6 +37,24 @@ namespace SPMSCAV1.ViewModels
 
         [DataFormDisplayOptions(IsVisible = false)]
         public ObservableCollection<InjuryCodeSeriesTypeModel> InjuryCodeSeriesTypesOriginal { get; }
+
+        [DataFormDisplayOptions(IsVisible = false)]
+
+        ICommand loadMoreCommand = null;
+
+        [DataFormDisplayOptions(IsVisible = false)]
+        public ICommand LoadMoreCommand
+        {
+            get { return loadMoreCommand; }
+            set
+            {
+                if (loadMoreCommand != value)
+                {
+                    loadMoreCommand = value;
+                    OnPropertyChanged("LoadMoreCommand");
+                }
+            }
+        }
 
 
         [DataFormDisplayOptions(IsVisible = false)]
@@ -70,6 +95,7 @@ namespace SPMSCAV1.ViewModels
         {
             IsBusy = true;
             SelectedInjuryCodeSeriesType = null;
+            skip = 0;
             ExecuteLoadInjuryCodeSeriesTypesCommand();
         }
 
@@ -79,12 +105,12 @@ namespace SPMSCAV1.ViewModels
             try
             {
                 InjuryCodeSeriesTypes.Clear();
-                var genders = await _dataService.GetListAsync();
-                foreach (var gender in genders)
+                var injuryCodeSeriesTypes = await _dataService.Search("*", skip, take);
+                foreach (var injuryCodeSeriesType in injuryCodeSeriesTypes)
                 {
-                    gender.Description = gender.Description;
-                    InjuryCodeSeriesTypes.Add(gender);
-                    InjuryCodeSeriesTypesOriginal.Add(gender);
+                    injuryCodeSeriesType.Description = injuryCodeSeriesType.Description;
+                    InjuryCodeSeriesTypes.Add(injuryCodeSeriesType);
+                    InjuryCodeSeriesTypesOriginal.Add(injuryCodeSeriesType);
                 }
             }
             catch (Exception ex)
@@ -95,6 +121,48 @@ namespace SPMSCAV1.ViewModels
             {
                 init = true;
                 IsBusy = false;
+            }
+        }
+
+        public bool IsRefreshing
+        {
+            get { return isRefreshing; }
+            set
+            {
+                if (isRefreshing != value)
+                {
+                    isRefreshing = value;
+                    OnPropertyChanged("IsRefreshing");
+                }
+            }
+        }
+
+        async void ExecuteLoadMoreCommand()
+        {
+            await Task.Delay(2000);
+            if (!IsBusy && init)
+            {
+                try
+                {
+                    IsBusy = true;
+                    skip += 1;
+                    var injuryCodeSeriesTypes = await _dataService.Search("*", skip, take);
+                    foreach (var injuryCodeSeriesType in injuryCodeSeriesTypes)
+                    {
+                        injuryCodeSeriesType.Description = injuryCodeSeriesType.Description;
+                        InjuryCodeSeriesTypes.Add(injuryCodeSeriesType);
+                        InjuryCodeSeriesTypesOriginal.Add(injuryCodeSeriesType);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex);
+                }
+                finally
+                {
+                    IsBusy = false;
+                    IsRefreshing = false;
+                }
             }
         }
 
@@ -111,9 +179,9 @@ namespace SPMSCAV1.ViewModels
                 InjuryCodeSeriesTypes.Clear();
                 if (SearchValue.Equals(null))
                 {
-                    foreach (var gender in InjuryCodeSeriesTypesOriginal)
+                    foreach (var injuryCodeSeriesType in InjuryCodeSeriesTypesOriginal)
                     {
-                        InjuryCodeSeriesTypes.Add(gender);
+                        InjuryCodeSeriesTypes.Add(injuryCodeSeriesType);
                     }
                 }
                 else
@@ -121,15 +189,45 @@ namespace SPMSCAV1.ViewModels
                     //if (SearchValue.Length > 1)
                     //{
 
-                    foreach (var gender in InjuryCodeSeriesTypesOriginal)
+                    foreach (var injuryCodeSeriesType in InjuryCodeSeriesTypesOriginal)
                     {
-                        gender.Description = gender.Description;
-                        if (gender.Description.ToLower().Contains(SearchValue.ToLower()))
+                        injuryCodeSeriesType.Description = injuryCodeSeriesType.Description;
+                        if (injuryCodeSeriesType.Description.ToLower().Contains(SearchValue.ToLower()))
                         {
-                            InjuryCodeSeriesTypes.Add(gender);
+                            InjuryCodeSeriesTypes.Add(injuryCodeSeriesType);
                         }
                     }
                     //}
+                }
+            }
+            IsBusy = false;
+        }
+
+        public async void SearchInjuryCodeSeriesType(string searchValue)
+        {
+            IsBusy = true;
+            if (!init)
+            {
+
+            }
+            else
+            {
+                IEnumerable<InjuryCodeSeriesTypeModel> injuryCodeSeriesTypes;
+                InjuryCodeSeriesTypes.Clear();
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    injuryCodeSeriesTypes = await _dataService.Search(searchValue);
+                }
+                else
+                {
+                    injuryCodeSeriesTypes = await _dataService.Search("*", skip, take);
+                }
+
+                foreach (var injuryCodeSeriesType in injuryCodeSeriesTypes)
+                {
+                    injuryCodeSeriesType.Description = injuryCodeSeriesType.Description;
+                    InjuryCodeSeriesTypes.Add(injuryCodeSeriesType);
+                    InjuryCodeSeriesTypesOriginal.Add(injuryCodeSeriesType);
                 }
             }
             IsBusy = false;
@@ -141,12 +239,17 @@ namespace SPMSCAV1.ViewModels
             await Navigation.NavigateToAsync<NewInjuryCodeSeriesTypeViewModel>(null);
         }
 
-        async void OnInjuryCodeSeriesTypeSelected(InjuryCodeSeriesTypeModel gender)
+        async void OnInjuryCodeSeriesTypeSelected(InjuryCodeSeriesTypeModel injuryCodeSeriesType)
         {
-            if (gender == null)
+            if (injuryCodeSeriesType == null)
                 return;
-            await Navigation.NavigateToAsync<InjuryCodeSeriesTypeDetailViewModel>(gender.InjuryCodeSeriesTypeId);
+            await Navigation.NavigateToAsync<InjuryCodeSeriesTypeDetailViewModel>(injuryCodeSeriesType.InjuryCodeSeriesTypeId);
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

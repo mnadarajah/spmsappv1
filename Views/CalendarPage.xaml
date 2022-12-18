@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+             xmlns:local="clr-namespace:SPMSCAV1.ViewModels"
+             xmlns:model="clr-namespace:SPMSCAV1.Models"
+             xmlns:dxdf="clr-namespace:DevExpress.Maui.DataForm;assembly=DevExpress.Maui.Editors"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             xmlns:dxsch="clr-namespace:DevExpress.Maui.Scheduler;assembly=DevExpress.Maui.Scheduler"
+             IconImageSource="browse"
+             BackgroundColor="{StaticResource NormalBackgroundColor}"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             x:Class="SPMSCAV1.Views.CalendarPage">
+    <ContentPage.BindingContext>
+        <local:CalendarViewModel></local:CalendarViewModel>
+    </ContentPage.BindingContext>
+    <dxsch:WorkWeekView Start="{Binding StartDate}"
+                    FirstDayOfWeek="Monday"
+                    WorkDays="Monday,Tuesday,Wednesday,Friday" 
+                    WorkTime="7:00:00-19:00:00"
+                    ShowWorkTimeOnly="True"
+                    TimeScaleInterval="01:00:00"
+                    TimeScaleSlotCount="4"
+                    SnapToCellsMode="Never"
+                    Tap="WorkWeekView_Tap">
+        <dxsch:WorkWeekView.DataStorage>
+            <dxsch:SchedulerDataStorage x:Name="storage">
+                <dxsch:SchedulerDataStorage.DataSource>
+                    <dxsch:DataSource AppointmentsSource="{Binding MedicalAppointments}"
+                                      AppointmentLabelsSource="{Binding AppointmentTypes}">
+                        <dxsch:DataSource.AppointmentMappings>
+                            <dxsch:AppointmentMappings 
+                            Id="Id" 
+                            Start="StartTime" 
+                            End="EndTime" 
+                            Subject="Subject"
+                            LabelId="LabelId"
+                            Location="Location"/>
+                        </dxsch:DataSource.AppointmentMappings>
+                        <dxsch:DataSource.AppointmentLabelMappings>
+                        <dxsch:AppointmentLabelMappings
+                                Caption="Caption"
+                                Color="Color"
+                                Id="Id"/>
+                        </dxsch:DataSource.AppointmentLabelMappings>
+                    </dxsch:DataSource>
+                </dxsch:SchedulerDataStorage.DataSource>
+            </dxsch:SchedulerDataStorage>
+        </dxsch:WorkWeekView.DataStorage>
+    </dxsch:WorkWeekView>
+</ContentPage>

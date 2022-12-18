@@ -2,15 +2,21 @@
 using SPMSCAV1.Services.Interface;
 using System.Collections.ObjectModel;
 using DevExpress.Maui.DataForm;
+using System.ComponentModel;
+using System.Windows.Input;
+using System.Runtime.CompilerServices;
 
 namespace SPMSCAV1.ViewModels
 {
-    public class GoodAndServiceTypeViewModel : BaseViewModel
+    public class GoodAndServiceTypeViewModel : BaseViewModel, INotifyPropertyChanged
     {
         IGoodAndServiceTypeService _dataService;
         GoodAndServiceTypeModel _selectedGoodAndServiceType;
         string searchValue;
         bool init = false;
+        bool isRefreshing = false;
+        int skip = 0;
+        int take = 10;
 
         public GoodAndServiceTypeViewModel(IGoodAndServiceTypeService dataService)
 
@@ -22,6 +28,7 @@ namespace SPMSCAV1.ViewModels
             GoodAndServiceTypeTapped = new Command<GoodAndServiceTypeModel>(OnGoodAndServiceTypeSelected);
             AddGoodAndServiceTypeCommand = new Command(OnAddGoodAndServiceType);
             SearchGoodAndServiceTypeCommand = new Command(SearchGoodAndServiceType);
+            LoadMoreCommand = new Command(ExecuteLoadMoreCommand);
             _dataService = dataService;
         }
 
@@ -30,6 +37,25 @@ namespace SPMSCAV1.ViewModels
 
         [DataFormDisplayOptions(IsVisible = false)]
         public ObservableCollection<GoodAndServiceTypeModel> GoodAndServiceTypesOriginal { get; }
+
+
+        [DataFormDisplayOptions(IsVisible = false)]
+
+        ICommand loadMoreCommand = null;
+
+        [DataFormDisplayOptions(IsVisible = false)]
+        public ICommand LoadMoreCommand
+        {
+            get { return loadMoreCommand; }
+            set
+            {
+                if (loadMoreCommand != value)
+                {
+                    loadMoreCommand = value;
+                    OnPropertyChanged("LoadMoreCommand");
+                }
+            }
+        }
 
 
         [DataFormDisplayOptions(IsVisible = false)]
@@ -70,6 +96,7 @@ namespace SPMSCAV1.ViewModels
         {
             IsBusy = true;
             SelectedGoodAndServiceType = null;
+            skip = 0;
             ExecuteLoadGoodAndServiceTypesCommand();
         }
 
@@ -79,12 +106,12 @@ namespace SPMSCAV1.ViewModels
             try
             {
                 GoodAndServiceTypes.Clear();
-                var genders = await _dataService.GetListAsync();
-                foreach (var gender in genders)
+                var goodAndServiceTypes = await _dataService.Search("*", skip, take);
+                foreach (var goodAndServiceType in goodAndServiceTypes)
                 {
-                    gender.Description = gender.Description;
-                    GoodAndServiceTypes.Add(gender);
-                    GoodAndServiceTypesOriginal.Add(gender);
+                    goodAndServiceType.Description = goodAndServiceType.Description;
+                    GoodAndServiceTypes.Add(goodAndServiceType);
+                    GoodAndServiceTypesOriginal.Add(goodAndServiceType);
                 }
             }
             catch (Exception ex)
@@ -95,6 +122,48 @@ namespace SPMSCAV1.ViewModels
             {
                 init = true;
                 IsBusy = false;
+            }
+        }
+
+        public bool IsRefreshing
+        {
+            get { return isRefreshing; }
+            set
+            {
+                if (isRefreshing != value)
+                {
+                    isRefreshing = value;
+                    OnPropertyChanged("IsRefreshing");
+                }
+            }
+        }
+
+        async void ExecuteLoadMoreCommand()
+        {
+            await Task.Delay(2000);
+            if (!IsBusy && init)
+            {
+                try
+                {
+                    IsBusy = true;
+                    skip += 1;
+                    var goodAndServiceTypes = await _dataService.Search("*", skip, take);
+                    foreach (var goodAndServiceType in goodAndServiceTypes)
+                    {
+                        goodAndServiceType.Description = goodAndServiceType.Description;
+                        GoodAndServiceTypes.Add(goodAndServiceType);
+                        GoodAndServiceTypesOriginal.Add(goodAndServiceType);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex);
+                }
+                finally
+                {
+                    IsBusy = false;
+                    IsRefreshing = false;
+                }
             }
         }
 
@@ -111,9 +180,9 @@ namespace SPMSCAV1.ViewModels
                 GoodAndServiceTypes.Clear();
                 if (SearchValue.Equals(null))
                 {
-                    foreach (var gender in GoodAndServiceTypesOriginal)
+                    foreach (var goodAndServiceType in GoodAndServiceTypesOriginal)
                     {
-                        GoodAndServiceTypes.Add(gender);
+                        GoodAndServiceTypes.Add(goodAndServiceType);
                     }
                 }
                 else
@@ -121,15 +190,45 @@ namespace SPMSCAV1.ViewModels
                     //if (SearchValue.Length > 1)
                     //{
 
-                    foreach (var gender in GoodAndServiceTypesOriginal)
+                    foreach (var goodAndServiceType in GoodAndServiceTypesOriginal)
                     {
-                        gender.Description = gender.Description;
-                        if (gender.Description.ToLower().Contains(SearchValue.ToLower()))
+                        goodAndServiceType.Description = goodAndServiceType.Description;
+                        if (goodAndServiceType.Description.ToLower().Contains(SearchValue.ToLower()))
                         {
-                            GoodAndServiceTypes.Add(gender);
+                            GoodAndServiceTypes.Add(goodAndServiceType);
                         }
                     }
                     //}
+                }
+            }
+            IsBusy = false;
+        }
+
+        public async void SearchGoodAndServiceType(string searchValue)
+        {
+            IsBusy = true;
+            if (!init)
+            {
+
+            }
+            else
+            {
+                IEnumerable<GoodAndServiceTypeModel> goodAndServiceTypes;
+                GoodAndServiceTypes.Clear();
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    goodAndServiceTypes = await _dataService.Search(searchValue);
+                }
+                else
+                {
+                    goodAndServiceTypes = await _dataService.Search("*", skip, take);
+                }
+
+                foreach (var goodAndServiceType in goodAndServiceTypes)
+                {
+                    goodAndServiceType.Description = goodAndServiceType.Description;
+                    GoodAndServiceTypes.Add(goodAndServiceType);
+                    GoodAndServiceTypesOriginal.Add(goodAndServiceType);
                 }
             }
             IsBusy = false;
@@ -141,11 +240,17 @@ namespace SPMSCAV1.ViewModels
             await Navigation.NavigateToAsync<NewGoodAndServiceTypeViewModel>(null);
         }
 
-        async void OnGoodAndServiceTypeSelected(GoodAndServiceTypeModel gender)
+        async void OnGoodAndServiceTypeSelected(GoodAndServiceTypeModel goodAndServiceType)
         {
-            if (gender == null)
+            if (goodAndServiceType == null)
                 return;
-            await Navigation.NavigateToAsync<GoodAndServiceTypeDetailViewModel>(gender.GoodAndServiceTypeId);
+            await Navigation.NavigateToAsync<GoodAndServiceTypeDetailViewModel>(goodAndServiceType.GoodAndServiceTypeId);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

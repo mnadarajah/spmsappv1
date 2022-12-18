@@ -16,8 +16,11 @@ namespace SPMSCAV1.ViewModels
         public GoodAndServiceTypeDetailViewModel(IGoodAndServiceTypeService dataService)
         {
             _dataService = dataService;
+            EditGoodAndServiceTypeCommand = new Command(EditGoodAndServiceType);
         }
         public double Id { get; set; }
+
+        public Command EditGoodAndServiceTypeCommand { get; }
 
         public string Description
         {

@@ -32,7 +32,14 @@ namespace SPMSCAV1
             Routing.RegisterRoute(typeof(EditInjuryCodeCategoryTypePage).FullName, typeof(EditInjuryCodeCategoryTypePage));
             Routing.RegisterRoute(typeof(EditGoodAndServiceTypePage).FullName, typeof(EditGoodAndServiceTypePage));
             Routing.RegisterRoute(typeof(EditDocumentTypePage).FullName, typeof(EditDocumentTypePage));
+            Routing.RegisterRoute(typeof(EditClientPage).FullName, typeof(EditClientPage));
+            Routing.RegisterRoute(typeof(NewClientPage).FullName, typeof(NewClientPage));
+            Routing.RegisterRoute(typeof(ClientDetailPage).FullName, typeof(ClientDetailPage));
+            Routing.RegisterRoute(typeof(CalendarPage).FullName, typeof(CalendarPage));
+
             MainPage = new MainPage();
+            //MainPage = new NavigationPage(new MainPage());
+
         }
     }
 }

@@ -16,8 +16,11 @@ namespace SPMSCAV1.ViewModels
         public InjuryCodeSeriesTypeDetailViewModel(IInjuryCodeSeriesTypeService dataService)
         {
             _dataService = dataService;
+            EditInjuryCodeSeriesTypeCommand = new Command(EditInjuryCodeSeriesType);
         }
         public double Id { get; set; }
+
+        public Command EditInjuryCodeSeriesTypeCommand { get; }
 
         public string Description
         {

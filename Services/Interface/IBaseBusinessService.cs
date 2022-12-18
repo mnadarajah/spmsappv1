@@ -18,5 +18,7 @@ namespace SPMSCAV1.Services.Interface
 
         Task<IEnumerable<T>> Search(string searchValue);
 
+        Task<IEnumerable<T>> Search(string searchValue, int skip, int take);
+
     }
 }

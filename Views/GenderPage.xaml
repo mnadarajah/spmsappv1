@@ -15,14 +15,14 @@
              x:Class="SPMSCAV1.Views.GenderPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="SEARCH" Command="{Binding SearchGenderCommand}"/>
-        <!--<ToolbarItem IconImageSource="search" Command="{Binding SearchGenderCommand}"/>-->
+        <!--<ToolbarItem Text="SEARCH" Command="{Binding SearchGenderCommand}"/>-->
         <ToolbarItem Text="ADD" Command="{Binding AddGenderCommand}" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
         
         <Grid RowDefinitions="Auto, *">
-            <dxdf:DataFormView x:Name="dataForm" DataObject="{Binding .}" CommitMode="PropertyChanged" ContentPadding="0" Margin="15" PropertyChanged="dataForm_PropertyChanged">
+            <!--<dxdf:DataFormView x:Name="dataForm" DataObject="{Binding .}" CommitMode="PropertyChanged" ContentPadding="0" Margin="15" PropertyChanged="dataForm_PropertyChanged">
                 <dxdf:DataFormView.Resources>
                     <Style TargetType="dxe:TextEdit">
                         <Setter Property="TextFontSize" Value="16" />
@@ -31,10 +31,15 @@
                     </Style>
                 </dxdf:DataFormView.Resources>
                 <dxdf:DataFormTextItem InplaceLabelText="Search" FieldName="SearchValue" IsLabelVisible="False" ></dxdf:DataFormTextItem>
-            </dxdf:DataFormView>
+            </dxdf:DataFormView>-->
+            <Entry  x:Name="searchValue"
+                    Placeholder="Search here"
+                    TextChanged="OnEntryTextChanged"
+                    Completed="OnEntryCompleted"></Entry>
+
             <dxcv:DXCollectionView x:Name="ItemsListView" Grid.Row="2"
             ItemsSource="{Binding Genders}"
-                SelectionMode="None" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                SelectionMode="None" IsLoadMoreEnabled="True" IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"  LoadMoreCommand="{Binding LoadMoreCommand}">
                 <dxcv:DXCollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid>

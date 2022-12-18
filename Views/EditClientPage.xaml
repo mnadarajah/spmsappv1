@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:templates="clr-namespace:SPMSCAV1.Views.Templates"
+             xmlns:dxdf="clr-namespace:DevExpress.Maui.DataForm;assembly=DevExpress.Maui.Editors"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource NormalBackgroundColor}"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             x:Class="SPMSCAV1.Views.EditClientPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save" Command="{Binding SaveCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+            <dxdf:DataFormView x:Name="dataForm" DataObject="{Binding .}" CommitMode="PropertyChanged" ContentPadding="0" Margin="15">
+                <dxdf:DataFormView.Resources>
+                    <Style TargetType="dxe:TextEdit">
+                        <Setter Property="TextFontSize" Value="16" />
+                        <Setter Property="TextFontFamily" Value="Roboto" />
+                        <Setter Property="PlaceholderColor" Value="#acacac"/>
+                    </Style>
+                </dxdf:DataFormView.Resources>
+            <dxdf:DataFormTextItem InplaceLabelText="PrefixId" FieldName="PrefixId" IsLabelVisible="False" ></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="FirstName" FieldName="FirstName" IsLabelVisible="False"></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="MiddleName" FieldName="MiddleName" IsLabelVisible="False" ></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="LastName" FieldName="LastName" IsLabelVisible="False"></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="Suffix" FieldName="Suffix" IsLabelVisible="False" ></dxdf:DataFormTextItem>
+            <dxdf:DataFormComboBoxItem InplaceLabelText="GenderId" FieldName="GenderId" IsLabelVisible="False"></dxdf:DataFormComboBoxItem>
+            <dxdf:DataFormDateItem InplaceLabelText="Date of Birth" FieldName="DateofBirth" IsLabelVisible="False"></dxdf:DataFormDateItem>
+            <dxdf:DataFormTextItem InplaceLabelText="Address1" FieldName="Address1" IsLabelVisible="False"></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="Address2" FieldName="Address2" IsLabelVisible="False" ></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="City" FieldName="City" IsLabelVisible="False"></dxdf:DataFormTextItem>
+            <dxdf:DataFormComboBoxItem InplaceLabelText="ProvinceOrStateId" FieldName="ProvinceOrStateId" IsLabelVisible="False" ></dxdf:DataFormComboBoxItem>
+            <dxdf:DataFormTextItem InplaceLabelText="PostalCodeOrZipCode" FieldName="PostalCodeOrZipCode" IsLabelVisible="False"></dxdf:DataFormTextItem>
+            <dxdf:DataFormComboBoxItem InplaceLabelText="Country" FieldName="CountryId" IsLabelVisible="False" ></dxdf:DataFormComboBoxItem>
+            <dxdf:DataFormTextItem InplaceLabelText="HomePhone" FieldName="HomePhone" IsLabelVisible="False"></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="CellPhone" FieldName="CellPhone" IsLabelVisible="False" ></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="PersanalFax" FieldName="PersanalFax" IsLabelVisible="False"></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="PersonalEmail" FieldName="PersonalEmail" IsLabelVisible="False" ></dxdf:DataFormTextItem>
+            <dxdf:DataFormComboBoxItem InplaceLabelText="MaritalStatusId" FieldName="MaritalStatusId" IsLabelVisible="False"></dxdf:DataFormComboBoxItem>
+            <dxdf:DataFormTextItem InplaceLabelText="SocialInsuranceNumber" FieldName="SocialInsuranceNumber" IsLabelVisible="False" ></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="HealthCardNumber" FieldName="HealthCardNumber" IsLabelVisible="False"></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="DriversLicenseNumber" FieldName="DriversLicenseNumber" IsLabelVisible="False" ></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="Weight" FieldName="Weight" IsLabelVisible="False"></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="Height" FieldName="Height" IsLabelVisible="False" ></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="Occupation" FieldName="Occupation" IsLabelVisible="False"></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="WorkPhone" FieldName="WorkPhone" IsLabelVisible="False" ></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="WorkPhoneExtension" FieldName="WorkPhoneExtension" IsLabelVisible="False"></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="WorkFax" FieldName="WorkFax" IsLabelVisible="False" ></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="WorkEmail" FieldName="WorkEmail" IsLabelVisible="False"></dxdf:DataFormTextItem>
+            </dxdf:DataFormView>
+    </ContentPage.Content>
+</ContentPage>

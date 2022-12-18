@@ -31,5 +31,21 @@ namespace SPMSCAV1.Views
             }
 
         }
+
+        void OnEntryTextChanged(object sender, TextChangedEventArgs e)
+        {
+            string oldText = e.OldTextValue;
+            string newText = e.NewTextValue;
+            string myText = searchValue.Text;
+            if (newText.Length != 1)
+            {
+                ViewModel.SearchDocumentType(newText);
+            }
+        }
+
+        void OnEntryCompleted(object sender, EventArgs e)
+        {
+            string text = ((Entry)sender).Text;
+        }
     }
 }

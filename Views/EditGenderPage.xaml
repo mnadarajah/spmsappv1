@@ -21,8 +21,9 @@
                         <Setter Property="PlaceholderColor" Value="#acacac"/>
                     </Style>
                 </dxdf:DataFormView.Resources>
-            <dxdf:DataFormTextItem InplaceLabelText="Description" FieldName="Description" IsLabelVisible="False" ></dxdf:DataFormTextItem>
             <dxdf:DataFormTextItem InplaceLabelText="Code" FieldName="Code" IsLabelVisible="False"></dxdf:DataFormTextItem>
+            <dxdf:DataFormTextItem InplaceLabelText="Description" FieldName="Description" IsLabelVisible="False" ></dxdf:DataFormTextItem>
+            
             </dxdf:DataFormView>
     </ContentPage.Content>
 </ContentPage>

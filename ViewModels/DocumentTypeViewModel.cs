@@ -2,15 +2,21 @@
 using SPMSCAV1.Models;
 using SPMSCAV1.Services.Interface;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace SPMSCAV1.ViewModels
 {
-    public class DocumentTypeViewModel : BaseViewModel
+    public class DocumentTypeViewModel : BaseViewModel, INotifyPropertyChanged
     {
         IDocumentTypeService _dataService;
         DocumentTypeModel _selectedDocumentType;
         string searchValue;
         bool init = false;
+        bool isRefreshing = false;
+        int skip = 0;
+        int take = 10;
 
         public DocumentTypeViewModel(IDocumentTypeService dataService)
 
@@ -22,6 +28,7 @@ namespace SPMSCAV1.ViewModels
             DocumentTypeTapped = new Command<DocumentTypeModel>(OnDocumentTypeSelected);
             AddDocumentTypeCommand = new Command(OnAddDocumentType);
             SearchDocumentTypeCommand = new Command(SearchDocumentType);
+            LoadMoreCommand = new Command(ExecuteLoadMoreCommand);
             _dataService = dataService;
         }
 
@@ -30,6 +37,24 @@ namespace SPMSCAV1.ViewModels
 
         [DataFormDisplayOptions(IsVisible = false)]
         public ObservableCollection<DocumentTypeModel> DocumentTypesOriginal { get; }
+
+        [DataFormDisplayOptions(IsVisible = false)]
+
+        ICommand loadMoreCommand = null;
+
+        [DataFormDisplayOptions(IsVisible = false)]
+        public ICommand LoadMoreCommand
+        {
+            get { return loadMoreCommand; }
+            set
+            {
+                if (loadMoreCommand != value)
+                {
+                    loadMoreCommand = value;
+                    OnPropertyChanged("LoadMoreCommand");
+                }
+            }
+        }
 
 
         [DataFormDisplayOptions(IsVisible = false)]
@@ -70,6 +95,7 @@ namespace SPMSCAV1.ViewModels
         {
             IsBusy = true;
             SelectedDocumentType = null;
+            skip = 0;
             ExecuteLoadDocumentTypesCommand();
         }
 
@@ -79,12 +105,12 @@ namespace SPMSCAV1.ViewModels
             try
             {
                 DocumentTypes.Clear();
-                var genders = await _dataService.GetListAsync();
-                foreach (var gender in genders)
+                var documentTypes = await _dataService.Search("*", skip, take);
+                foreach (var documentType in documentTypes)
                 {
-                    gender.Description = gender.Description;
-                    DocumentTypes.Add(gender);
-                    DocumentTypesOriginal.Add(gender);
+                    documentType.Description = documentType.Description;
+                    DocumentTypes.Add(documentType);
+                    DocumentTypesOriginal.Add(documentType);
                 }
             }
             catch (Exception ex)
@@ -95,6 +121,48 @@ namespace SPMSCAV1.ViewModels
             {
                 init = true;
                 IsBusy = false;
+            }
+        }
+
+        public bool IsRefreshing
+        {
+            get { return isRefreshing; }
+            set
+            {
+                if (isRefreshing != value)
+                {
+                    isRefreshing = value;
+                    OnPropertyChanged("IsRefreshing");
+                }
+            }
+        }
+
+        async void ExecuteLoadMoreCommand()
+        {
+            await Task.Delay(2000);
+            if (!IsBusy && init)
+            {
+                try
+                {
+                    IsBusy = true;
+                    skip += 1;
+                    var documentTypes = await _dataService.Search("*", skip, take);
+                    foreach (var documentType in documentTypes)
+                    {
+                        documentType.Description = documentType.Description;
+                        DocumentTypes.Add(documentType);
+                        DocumentTypesOriginal.Add(documentType);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex);
+                }
+                finally
+                {
+                    IsBusy = false;
+                    IsRefreshing = false;
+                }
             }
         }
 
@@ -111,9 +179,9 @@ namespace SPMSCAV1.ViewModels
                 DocumentTypes.Clear();
                 if (SearchValue.Equals(null))
                 {
-                    foreach (var gender in DocumentTypesOriginal)
+                    foreach (var documentType in DocumentTypesOriginal)
                     {
-                        DocumentTypes.Add(gender);
+                        DocumentTypes.Add(documentType);
                     }
                 }
                 else
@@ -121,15 +189,45 @@ namespace SPMSCAV1.ViewModels
                     //if (SearchValue.Length > 1)
                     //{
 
-                    foreach (var gender in DocumentTypesOriginal)
+                    foreach (var documentType in DocumentTypesOriginal)
                     {
-                        gender.Description = gender.Description;
-                        if (gender.Description.ToLower().Contains(SearchValue.ToLower()))
+                        documentType.Description = documentType.Description;
+                        if (documentType.Description.ToLower().Contains(SearchValue.ToLower()))
                         {
-                            DocumentTypes.Add(gender);
+                            DocumentTypes.Add(documentType);
                         }
                     }
                     //}
+                }
+            }
+            IsBusy = false;
+        }
+
+        public async void SearchDocumentType(string searchValue)
+        {
+            IsBusy = true;
+            if (!init)
+            {
+
+            }
+            else
+            {
+                IEnumerable<DocumentTypeModel> documentTypes;
+                DocumentTypes.Clear();
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    documentTypes = await _dataService.Search(searchValue);
+                }
+                else
+                {
+                    documentTypes = await _dataService.Search("*", skip, take);
+                }
+
+                foreach (var documentType in documentTypes)
+                {
+                    documentType.Description = documentType.Description;
+                    DocumentTypes.Add(documentType);
+                    DocumentTypesOriginal.Add(documentType);
                 }
             }
             IsBusy = false;
@@ -141,11 +239,17 @@ namespace SPMSCAV1.ViewModels
             await Navigation.NavigateToAsync<NewDocumentTypeViewModel>(null);
         }
 
-        async void OnDocumentTypeSelected(DocumentTypeModel gender)
+        async void OnDocumentTypeSelected(DocumentTypeModel documentType)
         {
-            if (gender == null)
+            if (documentType == null)
                 return;
-            await Navigation.NavigateToAsync<DocumentTypeDetailViewModel>(gender.DocumentTypeId);
+            await Navigation.NavigateToAsync<DocumentTypeDetailViewModel>(documentType.DocumentTypeId);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

@@ -12,14 +12,15 @@
              BackgroundColor="{StaticResource NormalBackgroundColor}"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              ios:Page.UseSafeArea="true"
-             x:Class="SPMSCAV1.Views.InjuryCodeCategoryTypePage">
+             x:Class="SPMSCAV1.Views.ClientPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="SEARCH" Command="{Binding SearchInjuryCodeCategoryTypeCommand}"/>
-        <ToolbarItem Text="ADD" Command="{Binding AddInjuryCodeCategoryTypeCommand}" />
+        <ToolbarItem Text="SEARCH" Command="{Binding SearchClientCommand}"/>
+        <!--<ToolbarItem Text="SEARCH" Command="{Binding SearchClientCommand}"/>-->
+        <ToolbarItem Text="ADD" Command="{Binding AddClientCommand}" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-
+        
         <Grid RowDefinitions="Auto, *">
             <!--<dxdf:DataFormView x:Name="dataForm" DataObject="{Binding .}" CommitMode="PropertyChanged" ContentPadding="0" Margin="15" PropertyChanged="dataForm_PropertyChanged">
                 <dxdf:DataFormView.Resources>
@@ -35,20 +36,22 @@
                     Placeholder="Search here"
                     TextChanged="OnEntryTextChanged"
                     Completed="OnEntryCompleted"></Entry>
+
             <dxcv:DXCollectionView x:Name="ItemsListView" Grid.Row="2"
-            ItemsSource="{Binding InjuryCodeCategoryTypes}"
-                SelectionMode="None" IsLoadMoreEnabled="True" IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"  LoadMoreCommand="{Binding LoadMoreCommand}">
+            ItemsSource="{Binding Clients}"
+                 SelectionMode="None" IsLoadMoreEnabled="True" IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"  LoadMoreCommand="{Binding LoadMoreCommand}">
+                <!--SelectionMode="None" IsRefreshing="{Binding IsBusy, Mode=TwoWay}" IsLoadMoreEnabled="True" LoadMoreCommand="{Binding LoadMoreCommand}">-->
                 <dxcv:DXCollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <StackLayout Padding="18,20,10,01" x:DataType="model:InjuryCodeCategoryTypeModel">
-                                <Label Text="{Binding Description}"
+                            <StackLayout Padding="18,20,10,01" x:DataType="model:ClientModel">
+                                <Label Text="{Binding FirstName}"
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemTextStyle}"
                                         FontFamily="Roboto"
                                         FontSize="14"
                                         TextColor="{StaticResource NormalText}"/>
-                                <Label Text="{Binding Description}"
+                                <Label Text="{Binding LastName}"
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemDetailTextStyle}"
                                         FontFamily="Roboto"
@@ -57,7 +60,7 @@
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer
                                             NumberOfTapsRequired="1"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:InjuryCodeCategoryTypeViewModel}}, Path=InjuryCodeCategoryTypeTapped}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:ClientViewModel}}, Path=ClientTapped}"
                                             CommandParameter="{Binding .}">
                                     </TapGestureRecognizer>
                                 </StackLayout.GestureRecognizers>
@@ -86,12 +89,12 @@
 
             </Grid>
             <dxcv:DXCollectionView x:Name="ItemsListView" Grid.Row="2"
-            ItemsSource="{Binding InjuryCodeCategoryTypes}"
+            ItemsSource="{Binding Clients}"
                 SelectionMode="None" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
                 <dxcv:DXCollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <StackLayout Padding="18,20,10,01" x:DataType="model:InjuryCodeCategoryTypeModel">
+                            <StackLayout Padding="18,20,10,01" x:DataType="model:ClientModel">
                                 <Label Text="{Binding Description}"
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemTextStyle}"
@@ -107,7 +110,7 @@
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer
                                             NumberOfTapsRequired="1"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:InjuryCodeCategoryTypeViewModel}}, Path=InjuryCodeCategoryTypeTapped}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:ClientViewModel}}, Path=ClientTapped}"
                                             CommandParameter="{Binding .}">
                                     </TapGestureRecognizer>
                                 </StackLayout.GestureRecognizers>

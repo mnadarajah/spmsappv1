@@ -171,7 +171,41 @@ namespace SPMSCAV1.Services.Repository
 
             try
             {
-                HttpResponseMessage httpResponseMessage = await _httpClient.GetAsync($"{_url + _route}/search/{searchValue}");
+                string searchUrl = $"{_url + _route}/search/{searchValue}";
+                HttpResponseMessage httpResponseMessage = await _httpClient.GetAsync(searchUrl);
+
+                if (httpResponseMessage.IsSuccessStatusCode)
+                {
+                    string content = await httpResponseMessage.Content.ReadAsStringAsync();
+                    list = JsonSerializer.Deserialize<List<T>>(content, _jsonSerializerOptions);
+                }
+                else
+                {
+                    //Debug.WriteLine("");
+                }
+            }
+            catch (Exception)
+            {
+                //Debug.WriteLine("");
+                throw;
+            }
+
+            return list;
+        }
+
+        public async Task<IEnumerable<T>> Search(string searchValue, int skip , int take)
+        {
+            List<T> list = new List<T>();
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+            {
+                //Debug.WriteLine("");
+                return list;
+            }
+
+            try
+            {
+                string searchUrl = $"{_url + _route}/search/{searchValue}?skip={skip}&take={take}";
+                HttpResponseMessage httpResponseMessage = await _httpClient.GetAsync(searchUrl);
 
                 if (httpResponseMessage.IsSuccessStatusCode)
                 {
@@ -203,7 +237,8 @@ namespace SPMSCAV1.Services.Repository
 
             try
             {
-                HttpResponseMessage httpResponseMessage = await _httpClient.GetAsync($"{_url + _route}");
+                string url = $"{_url + _route}";
+                HttpResponseMessage httpResponseMessage = await _httpClient.GetAsync(url);
 
                 if (httpResponseMessage.IsSuccessStatusCode)
                 {

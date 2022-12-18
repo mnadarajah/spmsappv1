@@ -8,36 +8,36 @@ using System.Windows.Input;
 
 namespace SPMSCAV1.ViewModels
 {
-    public class GenderViewModel : BaseViewModel, INotifyPropertyChanged
+    public class ClientViewModel : BaseViewModel , INotifyPropertyChanged
     {
-        IGenderService _dataService;
-        GenderModel _selectedGender;
+        IClientService _dataService;
+        ClientModel _selectedClient;
         List<string> _Queue = new List<string>();
         string searchValue;
         bool init = false;
         bool isRefreshing = false;
         int skip = 0;
-        int take = 10;
+        int take = 15;
 
-        public GenderViewModel(IGenderService dataService)
+        public ClientViewModel(IClientService dataService)
 
         {
             Title = "Browse";
-            Genders = new ObservableCollection<GenderModel>();
-            GendersOriginal = new ObservableCollection<GenderModel>();
-            LoadGendersCommand = new Command(() => ExecuteLoadGendersCommand());
-            GenderTapped = new Command<GenderModel>(OnGenderSelected);
-            AddGenderCommand = new Command(OnAddGender);
-            SearchGenderCommand = new Command(SearchGender);
+            Clients = new ObservableCollection<ClientModel>();
+            ClientsOriginal = new ObservableCollection<ClientModel>();
+            LoadClientsCommand = new Command(() => ExecuteLoadClientsCommand());
+            ClientTapped = new Command<ClientModel>(OnClientSelected);
+            AddClientCommand = new Command(OnAddClient);
+            SearchClientCommand = new Command(SearchClient);
             LoadMoreCommand = new Command(ExecuteLoadMoreCommand);
             _dataService = dataService;
         }
 
         [DataFormDisplayOptions(IsVisible = false)]
-        public ObservableCollection<GenderModel> Genders { get; }
+        public ObservableCollection<ClientModel> Clients { get; }
 
         [DataFormDisplayOptions(IsVisible = false)]
-        public ObservableCollection<GenderModel> GendersOriginal { get; }
+        public ObservableCollection<ClientModel> ClientsOriginal { get; }
 
         [DataFormDisplayOptions(IsVisible = false)]
 
@@ -57,35 +57,35 @@ namespace SPMSCAV1.ViewModels
             }
         }
 
+        [DataFormDisplayOptions(IsVisible = false)]
+        public Command LoadClientsCommand { get; }
 
         [DataFormDisplayOptions(IsVisible = false)]
-        public Command LoadGendersCommand { get; }
+        public Command AddClientCommand { get; }
 
         [DataFormDisplayOptions(IsVisible = false)]
-        public Command AddGenderCommand { get; }
+        public Command SearchClientCommand { get; }
 
         [DataFormDisplayOptions(IsVisible = false)]
-        public Command SearchGenderCommand { get; }
+        public Command<ClientModel> ClientTapped { get; }
 
         [DataFormDisplayOptions(IsVisible = false)]
-        public Command<GenderModel> GenderTapped { get; }
-
-        [DataFormDisplayOptions(IsVisible = false)]
-        public GenderModel SelectedGender
+        public ClientModel SelectedClient
         {
-            get => this._selectedGender;
+            get => this._selectedClient;
             set
             {
-                SetProperty(ref this._selectedGender, value);
-                OnGenderSelected(value);
+                SetProperty(ref this._selectedClient, value);
+                OnClientSelected(value);
             }
         }
 
         public string SearchValue
         {
             get => this.searchValue;
-            set  {
-                SetProperty(ref this.searchValue, value); 
+            set
+            {
+                SetProperty(ref this.searchValue, value);
             }
 
 
@@ -94,23 +94,28 @@ namespace SPMSCAV1.ViewModels
         public void OnAppearing()
         {
             IsBusy = true;
-            SelectedGender = null;
+            SelectedClient = null;
             skip = 0;
-            ExecuteLoadGendersCommand();
+            ExecuteLoadClientsCommand();
+            init = true;
+            IsRefreshing = false;
+            
         }
 
-        async void ExecuteLoadGendersCommand()
+        async void ExecuteLoadClientsCommand()
         {
             IsBusy = true;
             try
             {
-                Genders.Clear();
-                var genders = await _dataService.Search("*", skip, take);
-                foreach (var gender in genders)
+                Clients.Clear();
+
+                //var clients = await _dataService.GetListAsync();
+                var clients = await _dataService.Search("*", skip, take);
+                foreach (var client in clients)
                 {
-                    gender.Description = gender.Description;
-                    Genders.Add(gender);
-                    GendersOriginal.Add(gender);
+                    client.FirstName = client.FirstName;
+                    Clients.Add(client);
+                    ClientsOriginal.Add(client);
                 }
             }
             catch (Exception ex)
@@ -119,8 +124,8 @@ namespace SPMSCAV1.ViewModels
             }
             finally
             {
-                init = true;
                 IsBusy = false;
+                IsRefreshing= false;
             }
         }
 
@@ -146,12 +151,12 @@ namespace SPMSCAV1.ViewModels
                 {
                     IsBusy = true;
                     skip += 1;
-                    var genderTypes = await _dataService.Search("*", skip, take);
-                    foreach (var genderType in genderTypes)
+                    var clients = await _dataService.Search("*", skip, take);
+                    foreach (var client in clients)
                     {
-                        genderType.Description = genderType.Description;
-                        Genders.Add(genderType);
-                        GendersOriginal.Add(genderType);
+                        client.FirstName = client.FirstName;
+                        Clients.Add(client);
+                        ClientsOriginal.Add(client);
                     }
                 }
                 catch (Exception ex)
@@ -167,36 +172,7 @@ namespace SPMSCAV1.ViewModels
         }
 
 
-        public async void SearchGender()
-        {
-            IsBusy = true;
-            if (!init){
-
-            }
-            else
-            {
-                IEnumerable<GenderModel> genders;
-                Genders.Clear();
-                if (!string.IsNullOrEmpty(SearchValue))
-                {
-                     genders = await _dataService.Search(SearchValue);
-                }
-                else
-                {
-                     genders = await _dataService.Search("*", skip, take);
-                }
-
-                foreach (var gender in genders)
-                {
-                    gender.Description = gender.Description;
-                    Genders.Add(gender);
-                    GendersOriginal.Add(gender);
-                }
-            }
-            IsBusy = false;
-        }
-
-        public async void SearchGender(string searchValue)
+        public async void SearchClient()
         {
             IsBusy = true;
             if (!init)
@@ -205,37 +181,67 @@ namespace SPMSCAV1.ViewModels
             }
             else
             {
-                IEnumerable<GenderModel> genders;
-                Genders.Clear();
-                if (!string.IsNullOrEmpty(searchValue))
+                IEnumerable<ClientModel> clients;
+                Clients.Clear();
+                if (!string.IsNullOrEmpty(SearchValue))
                 {
-                    genders = await _dataService.Search(searchValue);
+                    clients = await _dataService.Search(SearchValue);
                 }
                 else
                 {
-                    genders = await _dataService.Search("*", skip, take);
+                    clients = await _dataService.GetListAsync();
                 }
 
-                foreach (var gender in genders)
+                foreach (var client in clients)
                 {
-                    gender.Description = gender.Description;
-                    Genders.Add(gender);
-                    GendersOriginal.Add(gender);
+                    client.FirstName = client.FirstName;
+                    Clients.Add(client);
+                    ClientsOriginal.Add(client);
                 }
             }
             IsBusy = false;
         }
 
-        async void OnAddGender(object obj)
+        public async void SearchClient(string searchValue)
         {
-            await Navigation.NavigateToAsync<NewGenderViewModel>(null);
+            IsBusy = true;
+            if (!init)
+            {
+
+            }
+            else
+            {
+                IEnumerable<ClientModel> clients;
+                Clients.Clear();
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    clients = await _dataService.Search(searchValue);
+                }
+                else
+                {
+                    clients = await _dataService.GetListAsync();
+                }
+
+                foreach (var client in clients)
+                {
+                    client.FirstName = client.FirstName;
+                    Clients.Add(client);
+                    ClientsOriginal.Add(client);
+                }
+            }
+            IsBusy = false;
         }
 
-        async void OnGenderSelected(GenderModel gender)
+        async void OnAddClient(object obj)
         {
-            if (gender == null)
+            await Navigation.NavigateToAsync<NewClientViewModel>(null);
+        }
+
+        async void OnClientSelected(ClientModel client)
+        {
+            if (client == null)
                 return;
-            await Navigation.NavigateToAsync<GenderDetailViewModel>(gender.GenderId);
+            await Navigation.NavigateToAsync<ClientDetailViewModel>(client.ClientId);
         }
 
         public void AddTextToQueue(string text)

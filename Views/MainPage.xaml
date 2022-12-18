@@ -14,6 +14,11 @@
     <ShellContent Title="About" Icon="about"
                   ContentTemplate="{DataTemplate local:AboutPage}"
                   Route="SPMSCAV1.Views.AboutPage"/>
+
+    
+    <ShellContent Title="Clients" Icon="browse"
+                  ContentTemplate="{DataTemplate local:ClientPage}"
+                  Route="SPMSCAV1.Views.ClientPage"/>
     <!--<ShellContent Title="Browse" Icon="browse"
                   ContentTemplate="{DataTemplate local:ItemsPage}" />-->
 
@@ -33,6 +38,11 @@
                   ContentTemplate="{DataTemplate local:DocumentTypePage}" />
     </FlyoutItem>
 
+    <ShellContent Title="Calendar" Icon="browse"
+                  ContentTemplate="{DataTemplate local:CalendarPage}"
+                  Route="SPMSCAV1.Views.CalendarPage"/>
+
+    <MenuItem Text="Logout" IconImageSource="logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked"/>
     <!--<ShellContent Title="Scheduler" Icon="scheduler"
                   ContentTemplate="{DataTemplate local:SchedulerPage}" />
     <ShellContent Title="DataGrid" Icon="grid"
@@ -42,7 +52,7 @@
     <ShellContent Title="Popup" Icon="popup"
                   ContentTemplate="{DataTemplate local:PopupPage}" />-->
     
-    <MenuItem Text="Logout" IconImageSource="logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked"/>
+
 
     <TabBar>
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />

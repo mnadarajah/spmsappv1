@@ -15,13 +15,10 @@
                   ContentTemplate="{DataTemplate local:AboutPage}"
                   Route="SPMSCAV1.Views.AboutPage"/>
 
-    
+
     <ShellContent Title="Clients" Icon="browse"
                   ContentTemplate="{DataTemplate local:ClientPage}"
                   Route="SPMSCAV1.Views.ClientPage"/>
-    <!--<ShellContent Title="Browse" Icon="browse"
-                  ContentTemplate="{DataTemplate local:ItemsPage}" />-->
-
     <FlyoutItem Title="Items"
                 Icon="browse">
         <ShellContent Title="Gender" Icon="browse"
@@ -43,55 +40,7 @@
                   Route="SPMSCAV1.Views.CalendarPage"/>
 
     <MenuItem Text="Logout" IconImageSource="logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked"/>
-    <!--<ShellContent Title="Scheduler" Icon="scheduler"
-                  ContentTemplate="{DataTemplate local:SchedulerPage}" />
-    <ShellContent Title="DataGrid" Icon="grid"
-                  ContentTemplate="{DataTemplate local:DataGridPage}"/>
-    <ShellContent Title="Charts" Icon="charts"
-                  ContentTemplate="{DataTemplate local:ChartsPage}" />
-    <ShellContent Title="Popup" Icon="popup"
-                  ContentTemplate="{DataTemplate local:PopupPage}" />-->
-    
-
-
     <TabBar>
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
     </TabBar>
-
-    <!--<FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <ShellContent Title="About" Icon="about"
-                  ContentTemplate="{DataTemplate local:AboutPage}"
-                  Route="SPMSCAV1.Views.AboutPage"/>
-        <Tab Title="Types"
-             Icon="browse">
-            <ShellContent Title="PaymentType" Icon="browse"
-                  ContentTemplate="{DataTemplate local:PaymentTypePage}" />
-            <ShellContent Title="Gender" Icon="browse"
-                  ContentTemplate="{DataTemplate local:GenderPage}" />
-            
-            <ShellContent Title="InjuryCodeSeriesType" Icon="browse"
-                  ContentTemplate="{DataTemplate local:InjuryCodeSeriesTypePage}" />
-            <ShellContent Title="InjuryCodeCategoryType" Icon="browse"
-                  ContentTemplate="{DataTemplate local:InjuryCodeCategoryTypePage}" />
-            <ShellContent Title="GoodAndServiceType" Icon="browse"
-                  ContentTemplate="{DataTemplate local:GoodAndServiceTypePage}" />
-            <ShellContent Title="DocumentType" Icon="browse"
-                  ContentTemplate="{DataTemplate local:DocumentTypePage}" />
-        </Tab>
-        <ShellContent Title="Scheduler" Icon="scheduler"
-                  ContentTemplate="{DataTemplate local:SchedulerPage}" />
-        <ShellContent Title="DataGrid" Icon="grid"
-                  ContentTemplate="{DataTemplate local:DataGridPage}"/>
-        <ShellContent Title="Charts" Icon="charts"
-                  ContentTemplate="{DataTemplate local:ChartsPage}" />
-        <ShellContent Title="Popup" Icon="popup"
-                  ContentTemplate="{DataTemplate local:PopupPage}" />
-
-
-    </FlyoutItem>
-    <MenuItem Text="Logout" IconImageSource="logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked"/>
-
-    <TabBar>
-        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
-    </TabBar>-->
 </Shell>

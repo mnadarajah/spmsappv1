@@ -24,6 +24,11 @@ namespace SPMSCAV1.Services
             await InternalNavigateToAsync(typeof(TViewModel), parameter, false);
         }
 
+        public async Task NavigateToAsyncMultiparm<TViewModel>(Dictionary<string, object> parameter) where TViewModel : BaseViewModel
+        {
+            await InternalNavigateToAsyncMultiparm(typeof(TViewModel), parameter, false);
+        }
+
         public async Task GoBackAsync()
         {
             await Shell.Current.GoToAsync("..");
@@ -37,6 +42,21 @@ namespace SPMSCAV1.Services
             {
                 string finalPath = $"{absolutePrefix}{viewName}?id={HttpUtility.UrlEncode(parameter.ToString())}";
                 await Shell.Current.GoToAsync(finalPath);
+            }
+            else
+            {
+                await Shell.Current.GoToAsync($"{absolutePrefix}{viewName}");
+            }
+        }
+
+        async Task InternalNavigateToAsyncMultiparm(Type viewModelType, Dictionary<string, object> parameter, bool isAbsoluteRoute = false)
+        {
+            var viewName = viewModelType.FullName.Replace("ViewModels", "Views").Replace("ViewModel", "Page");
+            string absolutePrefix = isAbsoluteRoute ? "///" : String.Empty;
+            if (parameter != null)
+            {
+                string finalPath = $"{absolutePrefix}{viewName}";
+                await Shell.Current.GoToAsync(finalPath, parameter);
             }
             else
             {

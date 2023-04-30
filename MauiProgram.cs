@@ -49,6 +49,8 @@ namespace SPMSCAV1
 
             builder.Services.AddScoped<IProvinceOrStateService, ProvinceOrStateService>();
 
+            builder.Services.AddScoped<IPrefixService, PrefixService>();
+
 
             //Add singleton for each page view
 
@@ -112,6 +114,9 @@ namespace SPMSCAV1
 
             builder.Services.AddSingleton<CalendarPage>();
 
+            builder.Services.AddSingleton<NewCalendarPage>();
+
+            builder.Services.AddSingleton<EditCalendarPage>();
 
 #if ANDROID && DEBUG
             Platforms.Android.DangerousAndroidMessageHandlerEmitter.Register();

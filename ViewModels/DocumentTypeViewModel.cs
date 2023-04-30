@@ -17,6 +17,7 @@ namespace SPMSCAV1.ViewModels
         bool isRefreshing = false;
         int skip = 0;
         int take = 10;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public DocumentTypeViewModel(IDocumentTypeService dataService)
 
@@ -55,7 +56,6 @@ namespace SPMSCAV1.ViewModels
                 }
             }
         }
-
 
         [DataFormDisplayOptions(IsVisible = false)]
         public Command LoadDocumentTypesCommand { get; }
@@ -166,7 +166,6 @@ namespace SPMSCAV1.ViewModels
             }
         }
 
-
         public void SearchDocumentType()
         {
             IsBusy = true;
@@ -186,9 +185,6 @@ namespace SPMSCAV1.ViewModels
                 }
                 else
                 {
-                    //if (SearchValue.Length > 1)
-                    //{
-
                     foreach (var documentType in DocumentTypesOriginal)
                     {
                         documentType.Description = documentType.Description;
@@ -197,7 +193,6 @@ namespace SPMSCAV1.ViewModels
                             DocumentTypes.Add(documentType);
                         }
                     }
-                    //}
                 }
             }
             IsBusy = false;
@@ -233,7 +228,6 @@ namespace SPMSCAV1.ViewModels
             IsBusy = false;
         }
 
-
         async void OnAddDocumentType(object obj)
         {
             await Navigation.NavigateToAsync<NewDocumentTypeViewModel>(null);
@@ -246,7 +240,6 @@ namespace SPMSCAV1.ViewModels
             await Navigation.NavigateToAsync<DocumentTypeDetailViewModel>(documentType.DocumentTypeId);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

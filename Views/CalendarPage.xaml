@@ -17,7 +17,7 @@
     </ContentPage.BindingContext>
     <dxsch:WorkWeekView Start="{Binding StartDate}"
                     FirstDayOfWeek="Monday"
-                    WorkDays="Monday,Tuesday,Wednesday,Friday" 
+                    WorkDays="Monday,Tuesday,Wednesday,Thursday,Friday" 
                     WorkTime="7:00:00-19:00:00"
                     ShowWorkTimeOnly="True"
                     TimeScaleInterval="01:00:00"
@@ -28,7 +28,9 @@
             <dxsch:SchedulerDataStorage x:Name="storage">
                 <dxsch:SchedulerDataStorage.DataSource>
                     <dxsch:DataSource AppointmentsSource="{Binding MedicalAppointments}"
-                                      AppointmentLabelsSource="{Binding AppointmentTypes}">
+                                      AppointmentLabelsSource="{Binding AppointmentTypes}"
+                                      PropertyChanged="DataSource_PropertyChanged"
+                                      >
                         <dxsch:DataSource.AppointmentMappings>
                             <dxsch:AppointmentMappings 
                             Id="Id" 

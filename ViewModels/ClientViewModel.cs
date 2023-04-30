@@ -18,9 +18,9 @@ namespace SPMSCAV1.ViewModels
         bool isRefreshing = false;
         int skip = 0;
         int take = 15;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public ClientViewModel(IClientService dataService)
-
         {
             Title = "Browse";
             Clients = new ObservableCollection<ClientModel>();
@@ -87,8 +87,6 @@ namespace SPMSCAV1.ViewModels
             {
                 SetProperty(ref this.searchValue, value);
             }
-
-
         }
 
         public void OnAppearing()
@@ -108,8 +106,6 @@ namespace SPMSCAV1.ViewModels
             try
             {
                 Clients.Clear();
-
-                //var clients = await _dataService.GetListAsync();
                 var clients = await _dataService.Search("*", skip, take);
                 foreach (var client in clients)
                 {
@@ -170,7 +166,6 @@ namespace SPMSCAV1.ViewModels
                 }
             }
         }
-
 
         public async void SearchClient()
         {
@@ -244,13 +239,6 @@ namespace SPMSCAV1.ViewModels
             await Navigation.NavigateToAsync<ClientDetailViewModel>(client.ClientId);
         }
 
-        public void AddTextToQueue(string text)
-        {
-            //lock(_Queue)
-            _Queue.Add(text);
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

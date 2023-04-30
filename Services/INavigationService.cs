@@ -10,6 +10,8 @@ namespace SPMSCAV1.Services
 
         Task NavigateToAsync<TViewModel>(object parameter) where TViewModel : BaseViewModel;
 
+        Task NavigateToAsyncMultiparm<TViewModel>(Dictionary<string, object> parameter) where TViewModel : BaseViewModel;
+
         Task GoBackAsync();
     }
 }

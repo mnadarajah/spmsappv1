@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace SPMSCAV1.Models
 {
-    public class MaritalStateModel
+    public class PrefixModel
     {
-        public long MaritalStatusId { get; set; }
+        public long PrefixId { get; set; }
         [StringLength(50)]
         public string Description { get; set; } = null!;
         [StringLength(50)]

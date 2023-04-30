@@ -69,7 +69,6 @@ namespace SPMSCAV1.ViewModels
         {
             if (Id < 0)
                 return;
-            //await Navigation.NavigateToAsync<EditGenderViewModel>(Id);
             await Navigation.NavigateToAsync<EditGenderViewModel>(Id);
         }
     }

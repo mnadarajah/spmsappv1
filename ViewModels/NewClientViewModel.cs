@@ -10,23 +10,15 @@ namespace SPMSCAV1.ViewModels
     {
         public const string ViewName = "NewClientPage";
 
-        List<GenderModel> genderModels = new List<GenderModel>();
-        List<CountryModel> countryModels = new List<CountryModel>();
-        List<ProvinceOrStateModel> provinceOrStateModels = new List<ProvinceOrStateModel>();
-        List<MaritalStateModel> maritalStateModels = new List<MaritalStateModel>();
-        long _countryId;
+        LookupService lookupService;
 
-        long _genderId;
-        long _maritalStatusId;
-        long _provinceOrStateId;
-
-        long prefixId;
+        string prefixId;
         string firstName;
         string middleName;
         string lastName;
         string suffix;
         string genderId;
-        DateTime dateofBirth;
+        DateTime dateofBirth = DateTime.Today;
         string address1;
         string address2;
         string city;
@@ -54,6 +46,7 @@ namespace SPMSCAV1.ViewModels
         public NewClientViewModel(IClientService dataService)
         {
             Title = "New Client";
+            lookupService = LookupService.Getinstance();
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
             PropertyChanged +=
@@ -63,7 +56,8 @@ namespace SPMSCAV1.ViewModels
 
         }
 
-        public long PrefixId
+        [DataFormComboBoxEditor]
+        public string PrefixId
         {
             get => this.prefixId;
             set => SetProperty(ref this.prefixId, value);
@@ -145,7 +139,7 @@ namespace SPMSCAV1.ViewModels
             get => this.cellPhone;
             set => SetProperty(ref this.cellPhone, value);
         }
-        public string PersanalFax
+        public string PersonalFax
         {
             get => this.persanalFax;
             set => SetProperty(ref this.persanalFax, value);
@@ -235,15 +229,17 @@ namespace SPMSCAV1.ViewModels
 
         async void OnSave()
         {
-            LookupService lookupService = LookupService.Getinstance();
-            genderModels = lookupService.GetGenderModels.ToList();
-            provinceOrStateModels = lookupService.GetProvinceOrStateModels.ToList();
-            countryModels = lookupService.GetCountryModels.ToList();
-            maritalStateModels = lookupService.GetMaritalStateModels.ToList();
+
+            long _countryId;
+            long _genderId;
+            long _maritalStatusId;
+            long _provinceOrStateId;
+            long _prefixId;
+
             DateTime _dateOfBirth = DateofBirth;
             if (CountryId!= null)
             {
-                _countryId = countryModels.Find(i => i.Description == CountryId).CountryId;
+                _countryId = lookupService.GetCountryModels.Find(i => i.Description == CountryId).CountryId;
             }
             else
             {
@@ -251,7 +247,7 @@ namespace SPMSCAV1.ViewModels
             }
             if (GenderId != null)
             {
-                _genderId = genderModels.Find(i => i.Description == GenderId).GenderId;
+                _genderId = lookupService.GetGenderModels.Find(i => i.Description == GenderId).GenderId;
             }
             else
             {
@@ -261,7 +257,7 @@ namespace SPMSCAV1.ViewModels
 
             if (MaritalStatusId != null)
             {
-                _maritalStatusId = maritalStateModels.Find(i => i.Description == MaritalStatusId).MaritalStatusId;
+                _maritalStatusId = lookupService.GetMaritalStateModels.Find(i => i.Description == MaritalStatusId).MaritalStatusId;
             }
             else
             {
@@ -270,17 +266,26 @@ namespace SPMSCAV1.ViewModels
 
             if (ProvinceOrStateId != null)
             {
-                _provinceOrStateId = provinceOrStateModels.Find(i => i.Description == ProvinceOrStateId).ProvinceOrStateId;
+                _provinceOrStateId = lookupService.GetProvinceOrStateModels.Find(i => i.Description == ProvinceOrStateId).ProvinceOrStateId;
             }
             else
             {
                 _provinceOrStateId = 0;
             }
 
+            if (PrefixId != null)
+            {
+                _prefixId = lookupService.GetPrefixModels.Find(i => i.Description == PrefixId).PrefixId;
+            }
+            else
+            {
+                _prefixId = 0;
+            }
+
             ClientModel newClient = new ClientModel()
             {
                 //ClientId = (long)_dataService.GetListAsync().Result.Count + 1,
-                PrefixId = prefixId,
+                PrefixId = _prefixId,
                 FirstName = firstName,
                 MiddleName = middleName,
                 LastName = lastName,
@@ -295,7 +300,7 @@ namespace SPMSCAV1.ViewModels
                 CountryId = _countryId,
                 HomePhone = homePhone,
                 CellPhone = cellPhone,
-                PersanalFax = persanalFax,
+                PersonalFax = persanalFax,
                 PersonalEmail = personalEmail,
                 MaritalStatusId = _maritalStatusId,
                 SocialInsuranceNumber = socialInsuranceNumber,
@@ -321,10 +326,5 @@ namespace SPMSCAV1.ViewModels
             // This will pop the current page off the navigation stack
             await Navigation.GoBackAsync();
         }
-
-       /* public override async Task InitializeAsync(object parameter)
-        {
-        }*/
-
     }
 }

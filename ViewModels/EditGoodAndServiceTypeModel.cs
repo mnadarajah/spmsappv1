@@ -56,7 +56,6 @@ namespace SPMSCAV1.ViewModels
 
         async void OnCancel()
         {
-            // This will pop the current page off the navigation stack
             await Navigation.GoBackAsync();
         }
 
@@ -76,8 +75,6 @@ namespace SPMSCAV1.ViewModels
             };
 
             await _dataService.AttachAndSaveAsync(editGoodAndServiceType, Id);
-
-            // This will pop the current page off the navigation stack
             await Navigation.GoBackAsync();
         }
 
@@ -110,10 +107,5 @@ namespace SPMSCAV1.ViewModels
             long.TryParse(id, out goodAndServiceTypeId);
             await LoadGoodAndServiceTypeId(goodAndServiceTypeId);
         }
-
-        /* public override async Task InitializeAsync(object parameter)
-         {
-         }*/
-
     }
 }

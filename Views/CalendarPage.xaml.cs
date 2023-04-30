@@ -10,7 +10,10 @@ namespace SPMSCAV1.Views
         public CalendarPage()
         {
             InitializeComponent();
+            BindingContext = ViewModel = new CalendarViewModel();
         }
+
+        CalendarViewModel ViewModel { get; }
 
         private void WorkWeekView_Tap(object sender, SchedulerGestureEventArgs e)
         {
@@ -25,15 +28,23 @@ namespace SPMSCAV1.Views
 
         private void ShowAppointmentEditPage(AppointmentItem appointment)
         {
-            AppointmentEditPage appEditPage = new AppointmentEditPage(appointment, this.storage);
-            Navigation.PushAsync(appEditPage);
+            ViewModel.editAppointment(appointment);
         }
 
         private void ShowNewAppointmentEditPage(IntervalInfo info)
         {
-            AppointmentEditPage appEditPage = new AppointmentEditPage(info.Start, info.End,
-                                                                     info.AllDay, this.storage);
-            Navigation.PushAsync(appEditPage);
+            ViewModel.createNewAppointment(info.Start);
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ViewModel.OnAppearing();
+        }
+
+        private void DataSource_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+
         }
     }
 }

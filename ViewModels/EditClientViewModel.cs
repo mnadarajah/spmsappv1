@@ -10,12 +10,8 @@ namespace SPMSCAV1.ViewModels
     {
         public const string ViewName = "EditClientPage";
 
-        List<GenderModel> genderModels = new List<GenderModel>();
-        List<CountryModel> countryModels = new List<CountryModel>();
-        List<ProvinceOrStateModel> provinceOrStateModels = new List<ProvinceOrStateModel>();
-        List<MaritalStateModel> maritalStateModels = new List<MaritalStateModel>();
-
-        long prefixId;
+        LookupService lookupService;
+        string prefixId;
         string firstName;
         string middleName;
         string lastName;
@@ -44,25 +40,20 @@ namespace SPMSCAV1.ViewModels
         string workFax;
         string workEmail;
 
-
         IClientService _dataService;
         public EditClientViewModel(IClientService dataService)
         {
             Title = "Edit Client";
+            lookupService = LookupService.Getinstance();
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
             PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
             _dataService = dataService;
-            LookupService lookupService = LookupService.Getinstance();
-            genderModels = lookupService.GetGenderModels.ToList();
-            provinceOrStateModels = lookupService.GetProvinceOrStateModels.ToList();
-            countryModels = lookupService.GetCountryModels.ToList();
-            maritalStateModels = lookupService.GetMaritalStateModels.ToList();
         }
 
-
-        public long PrefixId
+        [DataFormComboBoxEditor]
+        public string PrefixId
         {
             get => this.prefixId;
             set => SetProperty(ref this.prefixId, value);
@@ -142,7 +133,7 @@ namespace SPMSCAV1.ViewModels
             get => this.cellPhone;
             set => SetProperty(ref this.cellPhone, value);
         }
-        public string PersanalFax
+        public string PersonalFax
         {
             get => this.persanalFax;
             set => SetProperty(ref this.persanalFax, value);
@@ -228,21 +219,21 @@ namespace SPMSCAV1.ViewModels
 
         async void OnCancel()
         {
-            // This will pop the current page off the navigation stack
             await Navigation.GoBackAsync();
         }
 
         async void OnSave()
         {
             DateTime _dateOfBirth = DateofBirth;
-            long _countryId = countryModels.Find(i => i.Description == CountryId).CountryId;
-            long _genderId = genderModels.Find(i => i.Description == GenderId).GenderId;
-            long _maritalStatusId = maritalStateModels.Find(i => i.Description == MaritalStatusId).MaritalStatusId;
-            long _provinceOrStateId = provinceOrStateModels.Find(i => i.Description == ProvinceOrStateId).ProvinceOrStateId;
+            long _countryId = lookupService.GetCountryModels.Find(i => i.Description == CountryId).CountryId;
+            long _genderId = lookupService.GetGenderModels.Find(i => i.Description == GenderId).GenderId;
+            long _maritalStatusId = lookupService.GetMaritalStateModels.Find(i => i.Description == MaritalStatusId).MaritalStatusId;
+            long _provinceOrStateId = lookupService.GetProvinceOrStateModels.Find(i => i.Description == ProvinceOrStateId).ProvinceOrStateId;
+            long _prefixId = lookupService.GetPrefixModels.Find(i => i.Description == PrefixId).PrefixId;
             ClientModel editClient = new ClientModel()
             {
                 ClientId = Id,
-                PrefixId = prefixId,
+                PrefixId = _prefixId,
                 FirstName = firstName,
                 MiddleName = middleName,
                 LastName = lastName,
@@ -257,7 +248,7 @@ namespace SPMSCAV1.ViewModels
                 CountryId = _countryId,
                 HomePhone = homePhone,
                 CellPhone = cellPhone,
-                PersanalFax = persanalFax,
+                PersonalFax = persanalFax,
                 PersonalEmail = personalEmail,
                 MaritalStatusId = _maritalStatusId,
                 SocialInsuranceNumber = socialInsuranceNumber,
@@ -277,10 +268,7 @@ namespace SPMSCAV1.ViewModels
                 Version = 1,
                 Active = true
             };
-
             await _dataService.AttachAndSaveAsync(editClient, Id);
-
-            // This will pop the current page off the navigation stack
             await Navigation.GoBackAsync();
         }
 
@@ -290,26 +278,24 @@ namespace SPMSCAV1.ViewModels
             {
                 var client = await _dataService.GetByKeyAsync(clientId);
                 Id = client.ClientId;
-                //Description = client.Description;
-                //Code = client.ClientId;
-                PrefixId = client.PrefixId;
+                PrefixId = lookupService.GetPrefixModels.Find(i => i.PrefixId == client.PrefixId).Description;
                 FirstName = client.FirstName;
                 MiddleName = client.MiddleName;
                 LastName = client.LastName;
                 Suffix = client.Suffix;
-                GenderId = genderModels.Find(i => i.GenderId == client.GenderId).Description;
+                GenderId = lookupService.GetGenderModels.Find(i => i.GenderId == client.GenderId).Description;
                 DateofBirth = client.DateofBirth;
                 Address1 = client.Address1;
                 Address2 = client.Address2;
                 City = client.City;
-                ProvinceOrStateId = provinceOrStateModels.Find(i => i.ProvinceOrStateId == client.ProvinceOrStateId).Description;
+                ProvinceOrStateId = lookupService.GetProvinceOrStateModels.Find(i => i.ProvinceOrStateId == client.ProvinceOrStateId).Description;
                 PostalCodeOrZipCode = client.PostalCodeOrZipCode;
-                CountryId = countryModels.Find(i => i.CountryId == client.CountryId).Description;
+                CountryId = lookupService.GetCountryModels.Find(i => i.CountryId == client.CountryId).Description;
                 HomePhone = client.HomePhone;
                 CellPhone = client.CellPhone;
-                PersanalFax = client.PersanalFax;
+                PersonalFax = client.PersonalFax;
                 PersonalEmail = client.PersonalEmail;
-                MaritalStatusId = maritalStateModels.Find(i => i.MaritalStatusId == client.MaritalStatusId).Description; 
+                MaritalStatusId = lookupService.GetMaritalStateModels.Find(i => i.MaritalStatusId == client.MaritalStatusId).Description; 
                 SocialInsuranceNumber = client.SocialInsuranceNumber;
                 HealthCardNumber = client.HealthCardNumber;
                 DriversLicenseNumber = client.DriversLicenseNumber;
@@ -341,10 +327,5 @@ namespace SPMSCAV1.ViewModels
             long.TryParse(id, out clientId);
             await LoadClientId(clientId);
         }
-
-        /* public override async Task InitializeAsync(object parameter)
-         {
-         }*/
-
     }
 }

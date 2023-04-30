@@ -9,13 +9,8 @@ namespace SPMSCAV1.ViewModels
     public class ClientDetailViewModel : BaseViewModel, IQueryAttributable
     {
         public const string ViewName = "ClientDetailPage";
-
-        List<GenderModel> genderModels= new List<GenderModel>();
-        List<CountryModel> countryModels= new List<CountryModel>();
-        List<ProvinceOrStateModel> provinceOrStateModels= new List<ProvinceOrStateModel>();
-        List<MaritalStateModel> maritalStateModels= new List<MaritalStateModel>();
-
-        long prefixId;
+        LookupService lookupService;
+        string prefixId;
         string firstName;
         string middleName;
         string lastName;
@@ -43,12 +38,12 @@ namespace SPMSCAV1.ViewModels
         string workPhoneExtension;
         string workFax;
         string workEmail;
-
         IClientService _dataService;
 
         public ClientDetailViewModel(IClientService dataService)
         {
             Title = "Detail";
+            lookupService = LookupService.Getinstance();
             EditClientCommand = new Command(EditClient);
             _dataService = dataService;
         }
@@ -56,7 +51,7 @@ namespace SPMSCAV1.ViewModels
 
         public Command EditClientCommand { get; }
 
-        public long PrefixId 
+        public string PrefixId 
         { 
             get => this.prefixId; 
             set => SetProperty(ref this.prefixId, value);
@@ -131,7 +126,7 @@ namespace SPMSCAV1.ViewModels
             get => this.cellPhone; 
             set => SetProperty(ref this.cellPhone, value); 
         }
-        public string PersanalFax 
+        public string PersonalFax 
         { 
             get => this.persanalFax; 
             set => SetProperty(ref this.persanalFax, value); 
@@ -201,7 +196,6 @@ namespace SPMSCAV1.ViewModels
         {
             try
             {
-                LookupService lookupService = LookupService.Getinstance();
                 var client = await _dataService.GetByKeyAsync(clientId);
                 Id = client.ClientId;
                 FirstName = client.FirstName;
@@ -223,18 +217,11 @@ namespace SPMSCAV1.ViewModels
                 WorkPhoneExtension= client.WorkPhoneExtension;
                 WorkFax = client.WorkFax;
                 WorkEmail= client.WorkEmail;
-
-                //CountryId = lookupService.GetCountryModels.Find(i => i.CountryId == client.CountryId).Code;
-                //provinceOrStateModels = lookupService.GetProvinceOrStateModels;
-                genderModels = lookupService.GetGenderModels.ToList();
-                provinceOrStateModels= lookupService.GetProvinceOrStateModels.ToList();
-                countryModels= lookupService.GetCountryModels.ToList();
-                maritalStateModels= lookupService.GetMaritalStateModels.ToList();
-                //ProvinceOrStateId = provinceOrStateModels.Find(i => i.ProvinceOrStateId == client.ProvinceOrStateId).Code;
-                GenderId = genderModels.Find(i => i.GenderId == client.GenderId).Description;
-                ProvinceOrStateId = provinceOrStateModels.Find(i => i.ProvinceOrStateId == client.ProvinceOrStateId).Description;
-                CountryId = countryModels.Find(i => i.CountryId== client.CountryId).Description;
-                MaritalStatusId = maritalStateModels.Find(i => i.MaritalStatusId==client.MaritalStatusId).Description;
+                GenderId = lookupService.GetGenderModels.Find(i => i.GenderId == client.GenderId).Description;
+                ProvinceOrStateId = lookupService.GetProvinceOrStateModels.Find(i => i.ProvinceOrStateId == client.ProvinceOrStateId).Description;
+                CountryId = lookupService.GetCountryModels.Find(i => i.CountryId== client.CountryId).Description;
+                MaritalStatusId = lookupService.GetMaritalStateModels.Find(i => i.MaritalStatusId==client.MaritalStatusId).Description;
+                PrefixId = lookupService.GetPrefixModels.Find(i => i.PrefixId==client.PrefixId).Description;
             }
             catch (Exception)
             {
@@ -261,7 +248,6 @@ namespace SPMSCAV1.ViewModels
         {
             if (Id < 0)
                 return;
-            //await Navigation.NavigateToAsync<EditClientViewModel>(Id);
             await Navigation.NavigateToAsync<EditClientViewModel>(Id);
         }
     }

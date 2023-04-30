@@ -94,6 +94,20 @@ namespace SPMSCAV1.Models
             return medicalAppointment;
         }
 
+        public MedicalAppointment CreateMedicAppointment(int appointmentId, string patientName,
+                                            DateTime start, DateTime end, int labelId, string room)
+        {
+            MedicalAppointment medicalAppointment = new MedicalAppointment();
+            medicalAppointment.Id = appointmentId;
+            medicalAppointment.StartTime = start;
+            medicalAppointment.EndTime = end;
+            medicalAppointment.Subject = patientName;
+            medicalAppointment.LabelId = labelId;
+            medicalAppointment.Location = room;
+            MedicalAppointments.Add(medicalAppointment);
+            return medicalAppointment;
+        }
+
         public ObservableCollection<MedicalAppointment> MedicalAppointments { get; private set; }
 
         public CalendarModel()

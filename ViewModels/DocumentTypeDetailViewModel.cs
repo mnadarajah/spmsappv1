@@ -6,8 +6,6 @@ namespace SPMSCAV1.ViewModels
     public class DocumentTypeDetailViewModel : BaseViewModel, IQueryAttributable
     {
         public const string ViewName = "DocumentTypeDetailPage";
-
-
         string description;
         string code;
 

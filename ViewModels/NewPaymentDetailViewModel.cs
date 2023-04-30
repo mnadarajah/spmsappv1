@@ -77,10 +77,5 @@ namespace SPMSCAV1.ViewModels
             // This will pop the current page off the navigation stack
             await Navigation.GoBackAsync();
         }
-
-       /* public override async Task InitializeAsync(object parameter)
-        {
-        }*/
-
     }
 }

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-android;net6.0-ios</TargetFrameworks>
+		<TargetFrameworks>net7.0-android;net7.0-ios</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<UseMaui>true</UseMaui>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -18,8 +18,8 @@
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
         
-		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-ios'">14.2</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net7.0-ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net7.0-android'">21.0</SupportedOSPlatformVersion>
 
 		<AndroidHttpClientHandlerType>DangerousAndroidMessageHandler, DangerousAndroidMessageHandler</AndroidHttpClientHandlerType>
 	</PropertyGroup>
@@ -44,13 +44,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DevExpress.Maui.Charts" Version="22.1.6" />
-		<PackageReference Include="DevExpress.Maui.CollectionView" Version="22.1.6" />
-		<PackageReference Include="DevExpress.Maui.Core" Version="22.1.6" />
-		<PackageReference Include="DevExpress.Maui.DataGrid" Version="22.1.6" />
-		<PackageReference Include="DevExpress.Maui.Controls" Version="22.1.6" />
-		<PackageReference Include="DevExpress.Maui.Scheduler" Version="22.1.6" />
-		<PackageReference Include="DevExpress.Maui.Editors" Version="22.1.6" />
+		<PackageReference Include="DevExpress.Maui.Charts" Version="22.2.3" />
+		<PackageReference Include="DevExpress.Maui.CollectionView" Version="22.2.3" />
+		<PackageReference Include="DevExpress.Maui.Core" Version="22.2.3" />
+		<PackageReference Include="DevExpress.Maui.DataGrid" Version="22.2.3" />
+		<PackageReference Include="DevExpress.Maui.Controls" Version="22.2.3" />
+		<PackageReference Include="DevExpress.Maui.Scheduler" Version="22.2.3" />
+		<PackageReference Include="DevExpress.Maui.Editors" Version="22.2.3" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -83,6 +83,12 @@
 	  </Compile>
 	  <Compile Update="Views\InjuryCodeCategoryTypePage.xaml.cs">
 	    <DependentUpon>InjuryCodeCategoryTypePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\EditCalendarPage.xaml.cs">
+	    <DependentUpon>EditCalendarPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\NewCalendarPage.xaml.cs">
+	    <DependentUpon>NewCalendarPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\NewDocumentTypePage.xaml.cs">
 	    <DependentUpon>NewDocumentTypePage.xaml</DependentUpon>
@@ -154,6 +160,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\InjuryCodeCategoryTypePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\EditCalendarPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\NewCalendarPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\NewDocumentTypePage.xaml">

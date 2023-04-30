@@ -67,7 +67,7 @@ namespace SPMSCAV1.Models
         [StringLength(15)]
         public string? CellPhone { get; set; }
         [StringLength(15)]
-        public string? PersanalFax { get; set; }
+        public string? PersonalFax { get; set; }
         /// <summary>
         /// This field was imported.
         /// </summary>

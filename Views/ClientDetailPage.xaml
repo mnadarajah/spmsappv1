@@ -13,6 +13,8 @@
     <ContentPage.Content>
         <ScrollView>
         <StackLayout Spacing="5" Padding="15">
+            <Label Text="Prefix:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}"/>
+            <Label Text="{Binding PrefixId}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}" Margin="0, 0, 0, 15"/>
             <Label Text="First Name:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}"/>
             <Label Text="{Binding FirstName}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}" Margin="0, 0, 0, 15"/>
             <Label Text="Middle Name:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
@@ -21,39 +23,37 @@
             <Label Text="{Binding LastName}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
             <Label Text="Suffix:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding Suffix}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="GenderId:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="Gender:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding GenderId}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="DateofBirth:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="Date of Birth:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding DateofBirth}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="Address1:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="Address Line 1:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding Address1}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="Address2:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="Address Line 2:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding Address2}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
             <Label Text="City:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding City}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="ProvinceOrStateId:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="Province/State:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding ProvinceOrStateId}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="PostalCodeOrZipCode:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="Postal/ZIP Code:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding PostalCodeOrZipCode}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="CountryId:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="Country:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding CountryId}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="HomePhone:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="Home Phone:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding HomePhone}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="CellPhone:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="Cell Phone:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding CellPhone}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="PersanalFax:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
-            <Label Text="{Binding PersanalFax}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="PersonalEmail:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="Personal Fax:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="{Binding PersonalFax}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
+            <Label Text="Personal Email:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding PersonalEmail}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="MaritalStatusId:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="Marital Status:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding MaritalStatusId}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="SocialInsuranceNumber:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="Social Insurance Number:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding SocialInsuranceNumber}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="ProvinceOrStateId:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="Health Card Number:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding HealthCardNumber}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="HealthCardNumber:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
-            <Label Text="{Binding PostalCodeOrZipCode}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="DriversLicenseNumber:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="Drivers License Number:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding DriversLicenseNumber}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
             <Label Text="Weight:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding Weight}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
@@ -61,13 +61,13 @@
             <Label Text="{Binding Height}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
             <Label Text="Occupation:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding Occupation}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="WorkPhone:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="Work Phone:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding WorkPhone}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="WorkPhoneExtension:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="Work Phone Extension:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding WorkPhoneExtension}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="WorkFax:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="Work Fax:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding WorkFax}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
-            <Label Text="WorkEmail:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
+            <Label Text="Work Email:" FontFamily="Roboto" FontSize="12" TextColor="{StaticResource NormalLightText}" />
             <Label Text="{Binding WorkEmail}" FontFamily="Roboto" FontSize="14" TextColor="{StaticResource NormalText}"/>
 
             </StackLayout>

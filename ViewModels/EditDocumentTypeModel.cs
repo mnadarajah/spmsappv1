@@ -8,11 +8,8 @@ namespace SPMSCAV1.ViewModels
     public class EditDocumentTypeViewModel : BaseViewModel, IQueryAttributable
     {
         public const string ViewName = "EditDocumentTypePage";
-
         string description;
         string code;
-
-
         IDocumentTypeService _dataService;
         public EditDocumentTypeViewModel(IDocumentTypeService dataService)
         {
@@ -23,7 +20,6 @@ namespace SPMSCAV1.ViewModels
                 (_, __) => SaveCommand.ChangeCanExecute();
             _dataService = dataService;
         }
-
 
         public string Description
         {
@@ -37,7 +33,6 @@ namespace SPMSCAV1.ViewModels
             set => SetProperty(ref this.code, value);
         }
 
-
         [DataFormDisplayOptions(IsVisible = false)]
         public Command SaveCommand { get; }
 
@@ -47,7 +42,6 @@ namespace SPMSCAV1.ViewModels
         [DataFormDisplayOptions(IsVisible = false)]
         public long Id { get; set; }
 
-
         bool ValidateSave()
         {
             return !String.IsNullOrWhiteSpace(this.description)
@@ -56,7 +50,6 @@ namespace SPMSCAV1.ViewModels
 
         async void OnCancel()
         {
-            // This will pop the current page off the navigation stack
             await Navigation.GoBackAsync();
         }
 
@@ -77,7 +70,6 @@ namespace SPMSCAV1.ViewModels
 
             await _dataService.AttachAndSaveAsync(editDocumentType, Id);
 
-            // This will pop the current page off the navigation stack
             await Navigation.GoBackAsync();
         }
 
@@ -110,10 +102,5 @@ namespace SPMSCAV1.ViewModels
             long.TryParse(id, out documentTypeId);
             await LoadDocumentTypeId(documentTypeId);
         }
-
-        /* public override async Task InitializeAsync(object parameter)
-         {
-         }*/
-
     }
 }

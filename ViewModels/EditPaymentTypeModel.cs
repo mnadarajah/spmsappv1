@@ -111,9 +111,5 @@ namespace SPMSCAV1.ViewModels
             await LoadPaymentTypeId(paymentTypeId);
         }
 
-        /* public override async Task InitializeAsync(object parameter)
-         {
-         }*/
-
     }
 }

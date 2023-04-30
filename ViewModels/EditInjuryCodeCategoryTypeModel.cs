@@ -110,10 +110,5 @@ namespace SPMSCAV1.ViewModels
             long.TryParse(id, out injuryCodeCategoryTypeId);
             await LoadInjuryCodeCategoryTypeId(injuryCodeCategoryTypeId);
         }
-
-        /* public override async Task InitializeAsync(object parameter)
-         {
-         }*/
-
     }
 }

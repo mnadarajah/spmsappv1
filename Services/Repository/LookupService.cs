@@ -13,10 +13,11 @@ namespace SPMSCAV1.Services.Repository
     public class LookupService
     {
         private static LookupService _lookupService;
-        private static ObservableCollection<GenderModel> _GenderList = new ObservableCollection<GenderModel>();
-        private static ObservableCollection<CountryModel> _CountryList = new ObservableCollection<CountryModel>();
-        private static ObservableCollection<ProvinceOrStateModel> _ProvinceOrStateList = new ObservableCollection<ProvinceOrStateModel>();
-        private static ObservableCollection<MaritalStateModel> _MaritalStateList = new ObservableCollection<MaritalStateModel>();
+        public static List<GenderModel> _GenderList = new List<GenderModel>();
+        public static List<CountryModel> _CountryList = new List<CountryModel>();
+        public static List<ProvinceOrStateModel> _ProvinceOrStateList = new List<ProvinceOrStateModel>();
+        public static List<MaritalStateModel> _MaritalStateList = new List<MaritalStateModel>();
+        public static List<PrefixModel> _PrefixList = new List<PrefixModel>();
 
         private LookupService()
         {
@@ -24,6 +25,7 @@ namespace SPMSCAV1.Services.Repository
             LoadProvinceOrStateModels();
             LoadCountryModels();
             LoadMaritalStateModels();
+            LoadPrefixModels();
         }
 
         public static LookupService  Getinstance()
@@ -35,7 +37,7 @@ namespace SPMSCAV1.Services.Repository
             return _lookupService;
         }
 
-        public ObservableCollection<GenderModel> GetGenderModels
+        public List<GenderModel> GetGenderModels
         {
             get
             {
@@ -43,7 +45,7 @@ namespace SPMSCAV1.Services.Repository
             }
         }
 
-        public ObservableCollection<CountryModel> GetCountryModels
+        public List<CountryModel> GetCountryModels
         {
             get
             {
@@ -51,7 +53,7 @@ namespace SPMSCAV1.Services.Repository
             }
         }
 
-        public ObservableCollection<MaritalStateModel> GetMaritalStateModels
+        public List<MaritalStateModel> GetMaritalStateModels
         {
             get
             {
@@ -59,11 +61,19 @@ namespace SPMSCAV1.Services.Repository
             }
         }
 
-        public ObservableCollection<ProvinceOrStateModel> GetProvinceOrStateModels
+        public List<ProvinceOrStateModel> GetProvinceOrStateModels
         {
             get
             {
                 return _ProvinceOrStateList;
+            }
+        }
+
+        public List<PrefixModel> GetPrefixModels
+        {
+            get
+            {
+                return _PrefixList;
             }
         }
 
@@ -73,6 +83,7 @@ namespace SPMSCAV1.Services.Repository
             LoadProvinceOrStateModels();
             LoadCountryModels();
             LoadMaritalStateModels();
+            LoadPrefixModels();
         }
 
         private async void LoadGenderModels()
@@ -123,6 +134,19 @@ namespace SPMSCAV1.Services.Repository
             foreach (var maritalState in maritalStates)
             {
                 _MaritalStateList.Add(maritalState);
+
+            }
+        }
+
+        private async void LoadPrefixModels()
+        {
+            IPrefixService prefixService = new PrefixService();
+            _PrefixList.Clear();
+            var prefixs = await prefixService.GetListAsync();
+
+            foreach (var prefix in prefixs)
+            {
+                _PrefixList.Add(prefix);
 
             }
         }

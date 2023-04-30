@@ -8,10 +8,8 @@ namespace SPMSCAV1.ViewModels
     public class EditGenderViewModel : BaseViewModel, IQueryAttributable
     {
         public const string ViewName = "EditGenderPage";
-
         string description;
         string code;
-
 
         IGenderService _dataService;
         public EditGenderViewModel(IGenderService dataService)
@@ -56,7 +54,6 @@ namespace SPMSCAV1.ViewModels
 
         async void OnCancel()
         {
-            // This will pop the current page off the navigation stack
             await Navigation.GoBackAsync();
         }
 
@@ -74,10 +71,7 @@ namespace SPMSCAV1.ViewModels
                 Version = 1,
                 Active = true
             };
-
             await _dataService.AttachAndSaveAsync(editGender, Id);
-
-            // This will pop the current page off the navigation stack
             await Navigation.GoBackAsync();
         }
 
@@ -110,10 +104,5 @@ namespace SPMSCAV1.ViewModels
             long.TryParse(id, out genderId);
             await LoadGenderId(genderId);
         }
-
-        /* public override async Task InitializeAsync(object parameter)
-         {
-         }*/
-
     }
 }

@@ -7,20 +7,17 @@ using SPMSCAV1.ViewModels;
 namespace SPMSCAV1.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-
-
-    public partial class EditClientPage : ContentPage
+    public partial class EditCalendarPage : ContentPage
     {
-        private readonly IClientService _dataService;
-        public EditClientPage(IClientService dataService)
+        public EditCalendarPage()
         {
             InitializeComponent();
-            _dataService = dataService;
-
-            BindingContext = new EditClientViewModel(dataService);
-            dataForm.DataObject= BindingContext;
+            BindingContext = ViewModel = new EditCalendarViewModel();
             dataForm.PickerSourceProvider = new ComboBoxDataProviderService();
         }
 
+        EditCalendarViewModel ViewModel { get; }
     }
+
+
 }

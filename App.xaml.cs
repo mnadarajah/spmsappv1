@@ -12,14 +12,12 @@ namespace SPMSCAV1
 
             DependencyService.Register<MockDataStore>();
             DependencyService.Register<NavigationService>();
-            Routing.RegisterRoute(typeof(ItemDetailPage).FullName, typeof(ItemDetailPage));
             Routing.RegisterRoute(typeof(GenderDetailPage).FullName, typeof(GenderDetailPage));
             Routing.RegisterRoute(typeof(PaymentTypeDetailPage).FullName, typeof(PaymentTypeDetailPage));
             Routing.RegisterRoute(typeof(InjuryCodeSeriesTypeDetailPage).FullName, typeof(InjuryCodeSeriesTypeDetailPage));
             Routing.RegisterRoute(typeof(InjuryCodeCategoryTypeDetailPage).FullName, typeof(InjuryCodeCategoryTypeDetailPage));
             Routing.RegisterRoute(typeof(GoodAndServiceTypeDetailPage).FullName, typeof(GoodAndServiceTypeDetailPage));
             Routing.RegisterRoute(typeof(DocumentTypeDetailPage).FullName, typeof(DocumentTypeDetailPage));
-            Routing.RegisterRoute(typeof(NewItemPage).FullName, typeof(NewItemPage));
             Routing.RegisterRoute(typeof(NewGenderPage).FullName, typeof(NewGenderPage));
             Routing.RegisterRoute(typeof(NewPaymentTypePage).FullName, typeof(NewPaymentTypePage));
             Routing.RegisterRoute(typeof(NewInjuryCodeSeriesTypePage).FullName, typeof(NewInjuryCodeSeriesTypePage));
@@ -36,6 +34,8 @@ namespace SPMSCAV1
             Routing.RegisterRoute(typeof(NewClientPage).FullName, typeof(NewClientPage));
             Routing.RegisterRoute(typeof(ClientDetailPage).FullName, typeof(ClientDetailPage));
             Routing.RegisterRoute(typeof(CalendarPage).FullName, typeof(CalendarPage));
+            Routing.RegisterRoute(typeof(NewCalendarPage).FullName, typeof(NewCalendarPage));
+            Routing.RegisterRoute(typeof(EditCalendarPage).FullName, typeof(EditCalendarPage));
 
             MainPage = new MainPage();
             //MainPage = new NavigationPage(new MainPage());

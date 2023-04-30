@@ -8,8 +8,13 @@
              BackgroundColor="{StaticResource NormalBackgroundColor}"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              ios:Page.UseSafeArea="true"
-             x:Class="SPMSCAV1.Views.NewItemPage">
+             x:Class="SPMSCAV1.Views.NewCalendarPage">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}"
+                            IsVisible="False"/>
+    </Shell.BackButtonBehavior>
     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cancel" Command="{Binding CancelCommand}"/>
         <ToolbarItem Text="Save" Command="{Binding SaveCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
@@ -21,8 +26,15 @@
                         <Setter Property="PlaceholderColor" Value="#acacac"/>
                     </Style>
                 </dxdf:DataFormView.Resources>
-                <dxdf:DataFormTextItem InplaceLabelText="Text" FieldName="Text" IsLabelVisible="False" ></dxdf:DataFormTextItem>
-                <dxdf:DataFormTextItem InplaceLabelText="Description" FieldName="Description" IsLabelVisible="False"></dxdf:DataFormTextItem>
-            </dxdf:DataFormView>
+            <dxdf:DataFormTextItem InplaceLabelText="Subject" FieldName="Subject" IsLabelVisible="False" ></dxdf:DataFormTextItem>
+            <dxdf:DataFormComboBoxItem InplaceLabelText="Label" FieldName="LabelId" IsLabelVisible="False"></dxdf:DataFormComboBoxItem>
+            <dxdf:DataFormTextItem InplaceLabelText="Location" FieldName="Location" IsLabelVisible="False"></dxdf:DataFormTextItem>
+            <dxdf:DataFormDateItem InplaceLabelText="Start Date" FieldName="StartDate" IsLabelVisible="False"></dxdf:DataFormDateItem>
+            <dxdf:DataFormTimeItem InplaceLabelText="Start Time" FieldName="StartTime" IsLabelVisible="False"></dxdf:DataFormTimeItem>
+            <dxdf:DataFormDateItem InplaceLabelText="End Date" FieldName="EndDate" IsLabelVisible="False"></dxdf:DataFormDateItem>
+            <dxdf:DataFormTimeItem InplaceLabelText="End Time" FieldName="EndTime" IsLabelVisible="False"></dxdf:DataFormTimeItem>
+
+
+        </dxdf:DataFormView>
     </ContentPage.Content>
 </ContentPage>
